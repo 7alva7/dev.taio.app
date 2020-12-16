@@ -1,3 +1,7 @@
+if (location.href.indexOf('/#/cn/') !== -1) {
+  document.title = 'Taio 开发笔记';
+}
+
 window.$docsify = {
   alias: {
     '/((?!cn).)*/_sidebar.md': '/_sidebar.md',
@@ -33,6 +37,16 @@ window.$docsify = {
       } else {
         return 'Edit on GitHub';
       }
-    })
+    }),
+    (hook, vm) => {
+      hook.doneEach(() => {
+        const path = vm.route.path;
+        if (path.indexOf('/cn/') !== -1) {
+          document.title = 'Taio 开发笔记';
+        } else {
+          document.title = 'Taio Dev Notes';
+        }
+      });
+    }
   ]
 };
