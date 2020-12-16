@@ -22,17 +22,12 @@ jobs:
           cd docs/
           ./rss.sh
 
-      - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 🤖 Build feed.xml
-
       - name: Build Feed (cn)
         run: |
-          cd cn/
+          cd docs/cn/
           ./rss.sh
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 🤖 Build feed.xml (cn)
+          commit_message: 🤖 Build feed.xml
