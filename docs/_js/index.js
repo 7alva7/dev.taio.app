@@ -13,7 +13,7 @@ window.$docsify = {
   mergeNavbar: true,
   maxLevel: 4,
   subMaxLevel: 2,
-  name: 'Taio Dev Notes',
+  name: 'Taio',
   search: {
     noData: {
       '/cn/': '没有结果',
