@@ -6,10 +6,10 @@
   <description>Taio 开发笔记</description>
    
   <item>
-    <title><![CDATA[Taio 开发笔记]]></title>
+    <title><![CDATA[Hello, World!]]></title>
     <link>https://dev.taio.app/#/cn/README</link>
     <guid isPermaLink="false">https://dev.taio.app/#/cn/README</guid>
-    <description><![CDATA[<h1 id="taio-开发笔记">Taio 开发笔记</h1>
+    <description><![CDATA[<h1 id="hello-world">Hello, World!</h1>
 <p>我们是打造 <a href="https://taio.app/cn/">Taio</a> 应用的团队。</p>
 <p>在过去的几年里，我们从社区学到了很多东西，是时候回馈大家了。</p>
 <p>我们将分享关于 Taio 每一个秘密，包括开发技巧、经验教训、设计思路等。</p>
@@ -20,7 +20,7 @@
 <li>邮箱：<a href="mailto:hi@taio.app">hi@taio.app</a></li>
 <li>Twitter：<span class="citation">[@TaioApp]</span>(https://twitter.com/TaioApp)</li>
 </ul>]]></description>
-    <pubDate>Wed, 16 Dec 2020 13:12:49 +0800</pubDate>
+    <pubDate>Wed, 16 Dec 2020 14:03:45 +0800</pubDate>
   </item>
   
 </channel>
