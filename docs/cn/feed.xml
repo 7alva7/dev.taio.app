@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<channel>
+  <title>Taio 开发笔记</title>
+  <atom:link href="https://dev.taio.app/#/cn/feed.xml" rel="self" type="application/rss+xml" />
+  <link>https://dev.taio.app/#/cn/</link>
+  <description>Taio 开发笔记</description>
+   
+  <item>
+    <title><![CDATA[Taio 开发笔记]]></title>
+    <link>https://dev.taio.app/#/cn/README</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/cn/README</guid>
+    <description><![CDATA[<h1 id="taio-开发笔记">Taio 开发笔记</h1>
+<p>我们是打造 <a href="https://taio.app/cn/">Taio</a> 应用的团队。</p>
+<p>在过去的几年里，我们从社区学到了很多东西，是时候回馈大家了。</p>
+<p>我们将分享关于 Taio 每一个秘密，包括开发技巧、经验教训、设计思路等。</p>
+<p>敬请期待。</p>
+<h1 id="联系我们">联系我们</h1>
+<p>欢迎随时与我们联系：</p>
+<ul>
+<li>邮箱：<a href="mailto:hi@taio.app">hi@taio.app</a></li>
+<li>Twitter：https://twitter.com/TaioApp</li>
+</ul>]]></description>
+    <pubDate>Fri, 11 Dec 2020 11:23:10 +0800</pubDate>
+  </item>
+  
+</channel>
+</rss>
