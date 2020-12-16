@@ -37,6 +37,14 @@ window.$docsify = {
       }
     }),
     (hook, vm) => {
+      hook.afterEach(html => {
+        const path = vm.route.path;
+        if (path.indexOf('/cn/') !== -1) {
+          return html + '<footer>感谢阅读，您也可以通过 <a href="https://dev.taio.app/cn/feed.xml" target="_blank">RSS</a> 订阅我们的最新文章。</footer>';
+        } else {
+          return html + '<footer>Thanks for reading, you can also subscribe our latest articles using <a href="https://dev.taio.app/feed.xml" target="_blank">RSS</a>.</footer>';
+        }
+      });
       hook.doneEach(() => {
         const path = vm.route.path;
         localizePageTitle(path.indexOf('/cn/') !== -1);
