@@ -76,7 +76,7 @@ AudioServicesPlaySystemSound(1104)
 
 Since our app expects the user to use it on an iPad with a magic keyboard connected, it is extremely important that the buttons on the keyboard support the `Hover` effect of the trackpad.
 
-Instead saying too much here, you can find many WWDC sessions on the Apple developer website.
+Instead of saying too much here, you can find many WWDC sessions on the Apple developer website.
 
 We strongly recommend: [Design for the iPadOS pointer](https://developer.apple.com/videos/play/wwdc2020/10640/).
 
