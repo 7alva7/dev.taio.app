@@ -40,7 +40,7 @@ for file in ${newest_files[@]}; do
   title=$(grep "." $file | head -n1)
   encode=$(urlencode "${file::-3}")
   link="$website_link$encode"
-  html=$(pandoc -f markdown -t html $file)
+  html=$(pandoc -f gfm -t html $file)
   date=$(git log -1 --format="%aD" -- $file)
   item="
   <item>
