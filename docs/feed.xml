@@ -47,7 +47,7 @@ textView.reloadInputViews()</code></pre>
 <p><em>It's pure magic.</em></p>
 <h2 id="pointer-interactions">Pointer Interactions</h2>
 <p>Since our app expects the user to use it on an iPad with a magic keyboard connected, it is extremely important that the buttons on the keyboard support the <code>Hover</code> effect of the trackpad.</p>
-<p>Instead saying too much here, you can find many WWDC sessions on the Apple developer website.</p>
+<p>Instead of saying too much here, you can find many WWDC sessions on the Apple developer website.</p>
 <p>We strongly recommend: <a href="https://developer.apple.com/videos/play/wwdc2020/10640/">Design for the iPadOS pointer</a>.</p>
 <h2 id="better-scrolling">Better Scrolling</h2>
 <p>We use a standard <code>UIScrollView</code> for the toolbar scrolling, it works great, but we wanted to optimize the experience even further.</p>
@@ -99,7 +99,7 @@ override func toggleUnderline(_ sender: Any?) {
 <h2 id="more-content">More Content</h2>
 <p>As we said before, text editing is never easy and we have done a lot of work for it.</p>
 <p>This article is only a small part of it, stay tuned for more interesting content.</p>]]></description>
-    <pubDate>Wed, 16 Dec 2020 23:47:44 +0800</pubDate>
+    <pubDate>Thu, 17 Dec 2020 00:33:34 +0800</pubDate>
   </item>
    
   <item>
