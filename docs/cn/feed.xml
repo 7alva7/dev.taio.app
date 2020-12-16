@@ -6,6 +6,103 @@
   <description>Taio 开发笔记</description>
    
   <item>
+    <title><![CDATA[编辑器工具栏体验]]></title>
+    <link>https://dev.taio.app/#/cn/editor/toolbar</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/cn/editor/toolbar</guid>
+    <description><![CDATA[<h1 id="编辑器工具栏体验">编辑器工具栏体验</h1>
+<p>在移动端编辑场景里面，辅助工具栏的体验至关重要，尤其在没有外接键盘辅助的时候。为此，Taio 设计了极为方便的工具栏，可以用它输入符号，或者快速完成一些任务：</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_1.png" width="360" /></p>
+<p>本文阅读时间需要不到十分钟，希望有能对您有用的部分。</p>
+<h2 id="inputaccessoryview">inputAccessoryView</h2>
+<p>在 iOS 上面实现这样的工具栏，我们大部分时候都会采用 <code>inputAccessoryView</code>，而不是通过监听键盘位置的方式：</p>
+<pre class="swift"><code>textView.inputAccessoryView = UIView(...)</code></pre>
+<p>您可以使用任何 <code>UIView</code> 实现这个工具栏，但我们不建议这样做。为了实现像很多系统应用那样与键盘融为一体的工具栏，我们应该使用 <code>UIInputView</code>，并为它提供键盘的风格：</p>
+<pre class="swift"><code>textView.inputAccessoryView = UIInputView(..., inputViewStyle: .keyboard)</code></pre>
+<p>这样一来，iOS 会自动为您提供和键盘背景完全一致的风格，无需自行管理它的颜色。</p>
+<h2 id="安全区域">安全区域</h2>
+<p>在连接外接键盘时，用户可以选择性地把软键盘收起来。这个时候，您应该把底部的安全区域考虑进去，像是这样：</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_2.png" width="360" /></p>
+<p>而不是让 <code>Home Indicator</code> 盖住您的工具栏。</p>
+<h2 id="inputview">inputView</h2>
+<p>在必要的时候，我们可能需要为 TextView 提供“第二键盘”，比如 Taio 里面的工具面板和短语面板：</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_3.png" width="360" /></p>
+<p>这个功能是通过覆盖 TextView 的 <code>inputView</code> 实现的：</p>
+<pre class="swift"><code>textView.inputView = UIView(...)
+textView.reloadInputViews()</code></pre>
+<p>值得注意的是，这里有一个极其细节的体验，发生在用户使用部分输入法的时候（例如拼音）。</p>
+<p>当输入法的选字区域有一些字的时候，把键盘切换到 <code>inputView</code> 实现的界面，然后再切换回来。这个时候，待选区会突然消失，用户感受到的是键盘高度的<strong>突然</strong>变化。</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_4.png" width="720" /></p>
+<p>这个问题出现在了绝大多数的应用里面，包括 Apple 提供的第一方应用，但我们没有放过它。</p>
+<p>我们注意到：<strong>用户在移动光标之后，这个待选区又会突然回来</strong>。所以我们重写了 <code>setInputView</code> 方法，在检测到回到键盘之后，我们会：</p>
+<ul>
+<li>把光标移动一格（方向无关紧要）</li>
+<li>再移动回来</li>
+</ul>
+<p>通过这个小把戏，用户感受不到任何突然的变化，一切都很完美。</p>
+<h2 id="按键音效">按键音效</h2>
+<p>因为操作发生在键盘的扩展区域，把这些操作加上键盘声（用户可选择关掉）是非常自然的事情。</p>
+<p><code>UIDevice</code> 有一个 <code>playInputClick</code> 方法，可以通过实现 <code>enableInputClicksWhenVisible</code> 来使用。</p>
+<p>不过还有一个更粗暴的方法：</p>
+<pre class="swift"><code>AudioServicesPlaySystemSound(1104)</code></pre>
+<p><em>It's pure magic.</em></p>
+<h2 id="支持-pointer-交互">支持 Pointer 交互</h2>
+<p>因为我们的应用期待用户在一个连接了妙控键盘的 iPad 上使用，所以键盘上的按钮支持触摸板的 <code>Hover</code> 效果就极为重要，用户会非常期待鼠标停在按钮上的时候是有反馈的。</p>
+<p>关于这个部分我们不再赘述，您可以在 Apple 开发者官网找到很多 WWDC 课程。</p>
+<p>我们尤其推荐：<a href="https://developer.apple.com/videos/play/wwdc2020/10640/">Design for the iPadOS pointer</a>。</p>
+<h2 id="分页滚动">分页滚动</h2>
+<p>工具栏我们使用普通的 <code>UIScrollView</code> 实现，它可以很好地工作，但我们希望对滚动进行进一步的优化。</p>
+<p>简单说，用户会期待每次滚动都是精确的，而不是一滚就不知道滚到哪里去了，这对提升用户的操作信心很重要。</p>
+<p>如果您的 scrollView 每一页的大小是固定的，您可以直接使用 <code>paging</code> 特性实现：</p>
+<pre class="swift"><code>scrollView.isPagingEnabled = true</code></pre>
+<p>但想必您也注意到了，Taio 的工具栏是对按钮进行分组的，这个时候我们就要自己实现分页算法。</p>
+<p>我们第一步要做的事情，是把 scrollView 滚动降速提高，让滚动可以更快地停下来：</p>
+<pre class="swift"><code>scrollView.decelerationRate = .fast</code></pre>
+<p>仅仅做了这一步，您都会觉得工具栏有很大的提升，因为不会疯狂滚动了。接下来我们使用下面这个代理方法让滚动能够停在精确的位置：</p>
+<pre class="swift"><code>func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer&lt;CGPoint&gt;) {
+
+}</code></pre>
+<p>这里面您需要自己考虑，最佳的停留位置是哪里。对 Taio 而言，我们选择让它可以精确地停在某个分组开始的地方。</p>
+<blockquote>
+<p>您可以判断 <code>velocity</code>，让用户在缓慢滚动时，还是可以停留在任何位置。</p>
+</blockquote>
+<h2 id="光标移动">光标移动</h2>
+<p>您可能注意到了，Taio 的工具栏提供了一个光标移动的功能，按一下可以向前或向后移动光标。</p>
+<p>但这是不够的，用户期待的是，按住它的时候，光标可以持续性地移动，并且移动速度会逐渐加快。就像按住删除键那样，会产生快感。</p>
+<p>我们通过设置一个 <code>Timer</code>，配合上述的 <code>InputClick</code> 音效，在反复调整移动速度的变化方式之后，终于得到了一个很接近删除键的效果。</p>
+<h2 id="为-ipad-优化">为 iPad 优化</h2>
+<p>前面我们提到了 <code>inputView</code> 的作用，这种交互无法应用在连接了外接键盘的 iPad 上面，因为键盘会被藏起来。</p>
+<p>在这种情况下，我们会使用一个 <code>Popover</code> 来替代，像是这个样子：</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_5.png" width="360" /></p>
+<blockquote>
+<p>值得注意的是，您不应该使用是否是 iPad 来判断用户所处的环境。因为 iPad 在分屏的时候，可以长得和 iPhone 差不多，而且 iPad 的键盘还可以悬停。</p>
+</blockquote>
+<h2 id="standard-edit-actions">Standard Edit Actions</h2>
+<p>因为 Markdown 支持粗体、斜体等样式，所以很自然地，我们希望用户也可以通过 <code>UIMenuController</code> 的方式控制格式，这可以通过 <code>UIResponderStandardEditActions</code> 来完成：</p>
+<pre class="swift"><code>override func toggleBoldface(_ sender: Any?) {
+
+}
+
+override func toggleItalics(_ sender: Any?) {
+
+}
+
+override func toggleUnderline(_ sender: Any?) {
+
+}</code></pre>
+<p>iOS 都帮您做好了，您只需要把已有的实现链接到这几个方法里面即可。</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_6.png" width="360" /></p>
+<p>但这产生了副作用，在 iPad 的输入栏上面，现在会出现一个多余的 BIU 按钮，这和我们工具栏上的完全重复了。</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_7.png" width="360" /></p>
+<p>没问题，我们通过覆盖 <code>inputAssistantItem</code> 的方式把它去掉：</p>
+<pre class="swift"><code>view.inputAssistantItem.trailingBarButtonGroups = []</code></pre>
+<p>当然，如果您觉得有必要的话，也可以把它们设置成别的按钮。</p>
+<h2 id="更多内容">更多内容</h2>
+<p>正如我们之前提到的那样，文本编辑绝非易事，我们也做了许多工作。</p>
+<p>本文分享的内容仅仅是很小的一部分，请关注后续更多有趣的内容。</p>]]></description>
+    <pubDate>Wed, 16 Dec 2020 23:47:44 +0800</pubDate>
+  </item>
+   
+  <item>
     <title><![CDATA[Hello, World!]]></title>
     <link>https://dev.taio.app/#/cn/README</link>
     <guid isPermaLink="false">https://dev.taio.app/#/cn/README</guid>
