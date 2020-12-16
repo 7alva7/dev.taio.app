@@ -1,4 +1,4 @@
-# Taio Dev Notes
+# Hello, World!
 
 We are the team who build the [Taio](https://taio.app) app.
 

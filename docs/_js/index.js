@@ -39,11 +39,7 @@ window.$docsify = {
     (hook, vm) => {
       hook.doneEach(() => {
         const path = vm.route.path;
-        if (path === '/' || path === '/README' || path === '/cn/' || path === '/cn/README') {
-          document.title = 'Hello, World!';
-        } else {
-          localizePageTitle(path.indexOf('/cn/') !== -1);
-        }
+        localizePageTitle(path.indexOf('/cn/') !== -1);
       });
     }
   ]
