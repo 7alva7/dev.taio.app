@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<channel>
+  <title>Taio Dev Notes</title>
+  <atom:link href="https://dev.taio.app/feed.xml" rel="self" type="application/rss+xml" />
+  <link>https://dev.taio.app</link>
+  <description>Taio Dev Notes</description>
+   
+  <item>
+    <title><![CDATA[Taio Dev Notes]]></title>
+    <link>https://dev.taio.app/#/README</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/README</guid>
+    <description><![CDATA[<h1 id="taio-dev-notes">Taio Dev Notes</h1>
+<p>We are the team who build the <a href="https://taio.app">Taio</a> app.</p>
+<p>In the past few years, we have learned a lot from the community, and it's time to give back.</p>
+<p>We are going to share every secret about Taio, including development skills, lesson learned, design thinking, and more.</p>
+<p>Stay tuned.</p>
+<h2 id="contact-us">Contact Us</h2>
+<p>Feel free to reach us out:</p>
+<ul>
+<li>Email: <a href="mailto:hi@taio.app">hi@taio.app</a></li>
+<li>Twitter: https://twitter.com/TaioApp</li>
+</ul>]]></description>
+    <pubDate>Fri, 11 Dec 2020 11:23:10 +0800</pubDate>
+  </item>
+  
+</channel>
+</rss>
