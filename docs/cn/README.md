@@ -13,4 +13,4 @@
 欢迎随时与我们联系：
 
 - 邮箱：[hi@taio.app](mailto:hi@taio.app)
-- Twitter：https://twitter.com/TaioApp
+- Twitter：[@TaioApp](https://twitter.com/TaioApp)

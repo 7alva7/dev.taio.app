@@ -13,4 +13,4 @@ Stay tuned.
 Feel free to reach us out:
 
 - Email: [hi@taio.app](mailto:hi@taio.app)
-- Twitter: https://twitter.com/TaioApp
+- Twitter: [@TaioApp](https://twitter.com/TaioApp)
