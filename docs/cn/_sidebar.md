@@ -1,2 +1,4 @@
 - 快速开始
   - [关于](cn/README.md)
+- 编辑器
+  - [工具栏体验](cn/editor/toolbar.md)
