@@ -1,6 +1,4 @@
-if (location.href.indexOf('/#/cn/') !== -1) {
-  document.title = 'Taio 开发笔记';
-}
+localizePageTitle(location.href.indexOf('/#/cn/') !== -1);
 
 window.$docsify = {
   alias: {
@@ -41,12 +39,25 @@ window.$docsify = {
     (hook, vm) => {
       hook.doneEach(() => {
         const path = vm.route.path;
-        if (path.indexOf('/cn/') !== -1) {
-          document.title = 'Taio 开发笔记';
+        if (path === '/' || path === '/README' || path === '/cn/' || path === '/cn/README') {
+          document.title = 'Hello, World!';
         } else {
-          document.title = 'Taio Dev Notes';
+          localizePageTitle(path.indexOf('/cn/') !== -1);
         }
       });
     }
   ]
 };
+
+function localizePageTitle(cn) {
+  const titles = {
+    en: 'Taio Dev Notes',
+    cn: 'Taio 开发笔记',
+  }
+
+  if (cn && document.title === titles.en) {
+    document.title = titles.cn;
+  } else if (document.title === titles.cn) {
+    document.title = titles.en;
+  }
+}
