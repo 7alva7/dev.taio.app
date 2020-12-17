@@ -49,7 +49,7 @@ window.$docsify = {
         const path = vm.route.path;
         localizePageTitle(path.indexOf('/cn/') !== -1);
 
-        const editButton = document.querySelector("a[onclick^='EditOnGithubPlugin']");
+        const editButton = document.querySelector('a[onclick^="EditOnGithubPlugin"]');
         if (editButton) {
           editButton.onclick = event => {
             const link = 'https://github.com/cyanzhong/dev.taio.app/blob/master/docs/' + vm.route.file;
