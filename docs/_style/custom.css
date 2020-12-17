@@ -115,7 +115,6 @@ input {
   color: #2f9c0a;
 }
 
-.token.operator,
 .token.entity,
 .token.url,
 .token.variable {
