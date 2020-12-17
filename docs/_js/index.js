@@ -29,11 +29,11 @@ window.$docsify = {
   },
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
   plugins: [
-    EditOnGithubPlugin.create('https://github.com/cyanzhong/dev.taio.app/blob/master/docs/', null, path => {
+    EditOnGithubPlugin.create('', null, path => {
       if (path.indexOf('cn/') === 0) {
-        return '在 GitHub 上编辑';
+        return '在 GitHub 上查看';
       } else {
-        return 'Edit on GitHub';
+        return 'Read on GitHub';
       }
     }),
     (hook, vm) => {
@@ -48,6 +48,15 @@ window.$docsify = {
       hook.doneEach(() => {
         const path = vm.route.path;
         localizePageTitle(path.indexOf('/cn/') !== -1);
+
+        const editButton = document.querySelector("a[onclick^='EditOnGithubPlugin']");
+        if (editButton) {
+          editButton.onclick = event => {
+            const link = 'https://github.com/cyanzhong/dev.taio.app/blob/master/docs/' + vm.route.file;
+            window.open(link)
+            event.preventDefault();
+          }
+        }
       });
     }
   ]
