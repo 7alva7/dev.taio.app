@@ -1,3 +1,5 @@
+> [!NOTE] Dec 16, 2020
+
 # Editor Toolbar Experience
 
 For text editing, a well designed toolbar is essential, especially when there is no hardware keyboard connected. Taio offers a handy toolbar that can be used to type symbols, or to quickly complete some tasks:

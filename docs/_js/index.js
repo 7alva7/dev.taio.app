@@ -59,7 +59,15 @@ window.$docsify = {
         }
       });
     }
-  ]
+  ],
+  'flexible-alerts': {
+    note: {
+      label: {
+        '/cn/': '最后更新',
+        '/': 'Last Updated'
+      }
+    }
+  }
 };
 
 function localizePageTitle(cn) {
