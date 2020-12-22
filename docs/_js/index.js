@@ -27,7 +27,7 @@ window.$docsify = {
       '/': 'Search'
     }
   },
-  formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}',
+  formatUpdated: '{MM}/{DD} {HH}:{mm}',
   plugins: [
     EditOnGithubPlugin.create('', null, path => {
       if (path.indexOf('cn/') === 0) {
@@ -37,14 +37,6 @@ window.$docsify = {
       }
     }),
     (hook, vm) => {
-      hook.beforeEach(content => {
-        const path = vm.route.path;
-        if (path.indexOf('/cn/') !== -1) {
-          return '> 最后更新：{docsify-updated}\n\n' + content;
-        } else {
-          return '> Last updated: {docsify-updated}\n\n' + content;
-        }
-      });
       hook.afterEach(html => {
         const path = vm.route.path;
         if (path.indexOf('/cn/') !== -1) {
