@@ -6,10 +6,13 @@
   <description>Taio 开发笔记</description>
    
   <item>
-    <title><![CDATA[编辑器工具栏体验]]></title>
+    <title><![CDATA[[!NOTE] 2020 年 12 月 16 日]]></title>
     <link>https://dev.taio.app/#/cn/editor/toolbar</link>
     <guid isPermaLink="false">https://dev.taio.app/#/cn/editor/toolbar</guid>
-    <description><![CDATA[<h1 id="编辑器工具栏体验">编辑器工具栏体验</h1>
+    <description><![CDATA[<blockquote>
+<p>[!NOTE] 2020 年 12 月 16 日</p>
+</blockquote>
+<h1 id="编辑器工具栏体验">编辑器工具栏体验</h1>
 <p>在移动端编辑场景里面，辅助工具栏的体验至关重要，尤其在没有外接键盘辅助的时候。为此，Taio 设计了极为方便的工具栏，可以用它输入符号，或者快速完成一些任务：</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_1.png" width="360" /></p>
 <p>本文阅读时间需要不到十分钟，希望有能对您有用的部分。</p>
@@ -99,7 +102,7 @@ override func toggleUnderline(_ sender: Any?) {
 <h2 id="更多内容">更多内容</h2>
 <p>正如我们之前提到的那样，文本编辑绝非易事，我们也做了许多工作。</p>
 <p>本文分享的内容仅仅是很小的一部分，请关注后续更多有趣的内容。</p>]]></description>
-    <pubDate>Wed, 16 Dec 2020 23:47:44 +0800</pubDate>
+    <pubDate>Tue, 22 Dec 2020 16:36:21 +0800</pubDate>
   </item>
    
   <item>

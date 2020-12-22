@@ -6,10 +6,13 @@
   <description>Taio Dev Notes</description>
    
   <item>
-    <title><![CDATA[Editor Toolbar Experience]]></title>
+    <title><![CDATA[[!NOTE] Dec 16, 2020]]></title>
     <link>https://dev.taio.app/#/editor/toolbar</link>
     <guid isPermaLink="false">https://dev.taio.app/#/editor/toolbar</guid>
-    <description><![CDATA[<h1 id="editor-toolbar-experience">Editor Toolbar Experience</h1>
+    <description><![CDATA[<blockquote>
+<p>[!NOTE] Dec 16, 2020</p>
+</blockquote>
+<h1 id="editor-toolbar-experience">Editor Toolbar Experience</h1>
 <p>For text editing, a well designed toolbar is essential, especially when there is no hardware keyboard connected. Taio offers a handy toolbar that can be used to type symbols, or to quickly complete some tasks:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_1.png" width="360" /></p>
 <p>This article takes less than ten minutes to read, and we hope there are parts that will be useful to you.</p>
@@ -99,7 +102,7 @@ override func toggleUnderline(_ sender: Any?) {
 <h2 id="more-content">More Content</h2>
 <p>As we said before, text editing is never easy and we have done a lot of work for it.</p>
 <p>This article is only a small part of it, stay tuned for more interesting content.</p>]]></description>
-    <pubDate>Tue, 22 Dec 2020 16:18:33 +0800</pubDate>
+    <pubDate>Tue, 22 Dec 2020 16:36:21 +0800</pubDate>
   </item>
    
   <item>
