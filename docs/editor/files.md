@@ -1,5 +1,3 @@
-> [!NOTE] Dec 24, 2020
-
 # Modern File Apps
 
 Taio's Markdown editor is based on a completely open file system, which provides the basis for cross-app collaboration as well as convenient data transmission, this article will cover some key points to be aware of when developing such an app.
@@ -243,3 +241,5 @@ As we can see, it's not easy to make a file based app great, Taio has done a lot
 Apple offers a lot of tutorials for document apps, such as [Document Based Apps](https://developer.apple.com/document-based-apps/), as well as a series of related sessions presented at WWDC that are recommended for further exploring.
 
 Last but not least, thanks to all the third-party content referenced in this article for their contributions to the ecosystem.
+
+> [!NOTE] Dec 24, 2020

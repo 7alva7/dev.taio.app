@@ -1,5 +1,3 @@
-> [!NOTE] 2020 年 12 月 24 日
-
 # 现代文件应用
 
 Taio 的 Markdown 编辑器基于完全开放的文件系统，这为应用协作以及数据迁移提供了基础，本文将介绍开发此类应用需要注意到的点。
@@ -243,3 +241,5 @@ try FileManager.default.trashItem(at: url, resultingItemURL: &resultingURL)
 Apple 提供了针对文件应用的一系列教程，例如 [Document Based Apps](https://developer.apple.com/document-based-apps/)，以及在 WWDC 上发布的一系列相关课程，推荐进行进一步的了解。
 
 最后，感谢在文中引用的第三方内容为生态做出的贡献。
+
+> [!NOTE] 2020 年 12 月 24 日

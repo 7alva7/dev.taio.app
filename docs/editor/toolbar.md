@@ -1,5 +1,3 @@
-> [!NOTE] Dec 16, 2020
-
 # Editor Toolbar Experience
 
 For text editing, a well designed toolbar is essential, especially when there is no hardware keyboard connected. Taio offers a handy toolbar that can be used to type symbols, or to quickly complete some tasks:
@@ -171,3 +169,5 @@ Of course, you can also set them to other buttons if you feel it's necessary.
 As we said before, text editing is never easy and we have done a lot of work for it.
 
 This article is only a small part of it, stay tuned for more interesting content.
+
+> [!NOTE] Dec 16, 2020
