@@ -1,4 +1,5 @@
 - 快速开始
   - [关于](cn/README.md)
 - 编辑器
+  - [现代文件应用](cn/editor/files.md)
   - [工具栏体验](cn/editor/toolbar.md)

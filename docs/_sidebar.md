@@ -1,4 +1,5 @@
 - Quick Start
   - [README](README.md)
 - Editor
+  - [Modern File Apps](editor/files.md)
   - [Toolbar Experience](editor/toolbar.md)
