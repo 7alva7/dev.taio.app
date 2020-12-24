@@ -6,6 +6,170 @@
   <description>Taio Dev Notes</description>
    
   <item>
+    <title><![CDATA[[!NOTE] Dec 24, 2020]]></title>
+    <link>https://dev.taio.app/#/editor/files</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/editor/files</guid>
+    <description><![CDATA[<blockquote>
+<p>[!NOTE] Dec 24, 2020</p>
+</blockquote>
+<h1 id="modern-file-apps">Modern File Apps</h1>
+<p>Taio's Markdown editor is based on a completely open file system, which provides the basis for cross-app collaboration as well as convenient data transmission, this article will cover some key points to be aware of when developing such an app.</p>
+<p>Of course, we are assuming that your goal is to be a good citizen on iOS and contribute to the great ecosystem. If your direction is to create private files or formats, this article won't be very helpful to you.</p>
+<h2 id="file-sharing">File Sharing</h2>
+<p>Early iOS didn't have the foundation for these great features until Apple released the <a href="https://support.apple.com/en-us/HT206481">Files App</a>, and a bunch of APIs made for file sharing.</p>
+<p>The Files app provides a unified interface for shared documents, and developers can expose the <code>Documents</code> directory to the Files app by enabling <code>UIFileSharingEnabled</code> in <code>Info.plist</code>.</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>UIFileSharingEnabled<span class="kw">&lt;/key&gt;</span>
+<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_8.png" width="360"></p>
+<h2 id="icloud-drive">iCloud Drive</h2>
+<p>The <code>Documents</code> directory mentioned above is local. iOS also offers a cloud storage service called <code>iCloud Drive</code>, there're a number of advantages:</p>
+<ul>
+<li>iCloud account based, no need to create user system, no additional logins for users</li>
+<li>Seamless integration with existing file management APIs</li>
+<li>Uses the user's iCloud quota, developers don't have to pay for it</li>
+</ul>
+<p>So, when it comes to creating document synchronization on iOS, iCloud Drive is the way to go.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_9.png" width="360"></p>
+<p>It's also simple to use - just assign an iCloud Container to your app, and then use <a href="https://developer.apple.com/documentation/foundation/filemanager">FileManager</a> to get the path:</p>
+<pre class="swift"><code>let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)</code></pre>
+<p>Your code needs to handle cases where <code>url</code> is <code>nil</code>, such as when the user is not logged into iCloud, or when the app is not granted iCloud Drive access.</p>
+<blockquote>
+<p>When permission changes, iOS will post an <a href="https://developer.apple.com/documentation/foundation/nsnotification/name/1407629-nsubiquityidentitydidchange">NSUbiquityIdentityDidChange</a> notification, which can be observed in order to handle interface changes.</p>
+</blockquote>
+<h2 id="file-provider">File Provider</h2>
+<p>The above two solutions provide Files app support for local files and iCloud files respectively, but still cannot handle the case where the file is in other locations. For example, apps that support app extensions may store files in a <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html">Shared Container</a> to make sure both the main app and app extensions can access.</p>
+<p>For this case, we can create <a href="https://developer.apple.com/documentation/fileprovider">File Provider Extension</a> to provide files to the Files app.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_10.png" width="360"></p>
+<p>File Provider APIs are fairly straightforward, we recommend taking <a href="https://ish.app/">ish</a> app's <a href="https://github.com/ish-app/ish/tree/master/app/FileProvider">File Provider</a> as a complete example, so we won't go over it here.</p>
+<blockquote>
+<p>In addition, your app can also support <a href="https://developer.apple.com/documentation/fileproviderui">File Provider UI Extension</a>, which provides custom actions for the Files app.</p>
+</blockquote>
+<h2 id="document-types">Document types</h2>
+<p>Apps can register supported document types in the <code>Info.plist</code> file, for example:</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
+  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;string&gt;</span>Markdown File<span class="kw">&lt;/string</span>
+  <span class="er">&lt;key</span><span class="kw">&gt;</span>LSHandlerRank<span class="kw">&lt;/key</span>
+  <span class="er">&lt;string</span><span class="kw">&gt;</span>Owner<span class="er">&lt;</span>/string
+  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;array</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>net.daringfireball.markdown<span class="kw">&lt;/string</span>
+  <span class="er">&lt;/array</span><span class="kw">&gt;</span>
+<span class="er">&lt;</span>/dict&gt;</code></pre></div>
+<p>This allows you to receive files shared via AirDrop or Share Sheet and then handle them using the methods associated with <code>AppDelegate</code> or <code>SceneDelegate</code> (Multiple Windows).</p>
+<p>To make the experience even better, we can support importing folders, not just single files:</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
+  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;string&gt;</span>Folder<span class="kw">&lt;/string</span>
+  <span class="er">&lt;key</span><span class="kw">&gt;</span>CFBundleTypeOSTypes<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;array</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>fold<span class="kw">&lt;/string</span>
+  <span class="er">&lt;/array</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;key&gt;</span>CFBundleTypeRole<span class="kw">&lt;/key</span>
+  <span class="er">&lt;string</span><span class="kw">&gt;</span>Viewer<span class="er">&lt;</span>/string&gt;
+  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key</span>
+  <span class="er">&lt;string</span><span class="kw">&gt;</span>Default<span class="er">&lt;</span>/string&gt;
+  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;array</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>public.folder<span class="kw">&lt;/string</span>
+  <span class="er">&lt;/array</span><span class="kw">&gt;</span>
+<span class="er">&lt;</span>/dict&gt;</code></pre></div>
+<blockquote>
+<p>Taio allows the user to save imported folders to a location.</p>
+</blockquote>
+<h2 id="exported-type-identifiers">Exported Type Identifiers</h2>
+<p>Other than receiving files, apps can also define exclusive file types. For example, Taio's action is essentially a JSON file, which we define as <code>taioactions</code>:</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
+  <span class="kw">&lt;key&gt;</span>UTypeConformsTo<span class="kw">&lt;/key&gt;</span>
+  <span class="kw">&lt;array</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>public.json<span class="kw">&lt;/string</span>
+  <span class="er">&lt;/array</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;key&gt;</span>UTTypeDescription<span class="kw">&lt;/key</span>
+  <span class="er">&lt;string</span><span class="kw">&gt;</span>FileTypeTaioActionsDescription<span class="kw">&lt;/string</span>
+  <span class="er">&lt;key</span><span class="kw">&gt;</span>UTTypeIdentifier<span class="er">&lt;</span>/key
+  <span class="kw">&lt;string&gt;</span>app.cyan.taio-actions<span class="kw">&lt;/string</span>
+  <span class="er">&lt;key</span><span class="kw">&gt;</span>UTTypeTagSpecification<span class="er">&lt;</span>/key
+  <span class="kw">&lt;dict</span>
+    <span class="er">&lt;key</span><span class="kw">&gt;</span>public.filename-extension<span class="kw">&lt;/key</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>taioactions<span class="er">&lt;</span>/string
+    <span class="kw">&lt;key&gt;</span>public.mime-type<span class="kw">&lt;/key</span>
+    <span class="er">&lt;string</span><span class="kw">&gt;</span>application/json<span class="er">&lt;</span>/string&gt;
+  <span class="er">&lt;</span>/dict
+<span class="er">&lt;</span>/dict&gt;</code></pre></div>
+<p>Users can see the type description and other apps can register this type as supported:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_11.png" width="360"></p>
+<blockquote>
+<p>The above <code>FileTypeTaioActionsDescription</code> is the key to the localizable string.</p>
+</blockquote>
+<h2 id="uidocumentbrowserviewcontroller">UIDocumentBrowserViewController</h2>
+<p>If your app is fully document-based, using a <a href="https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller">UIDocumentBrowserViewController</a> might be a good way to go, and Apple's <a href="https://www.apple.com/iwork/">iWork</a> suite is implemented this way.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_12.png" width="360"></p>
+<p>Taio wasn't implemented like that, because we wanted more UI flexibility, but Apple's <a href="https://developer.apple.com/documentation/uikit/view_controllers/adding_a_document_browser_to_your_app">documentation</a> explicitly states:</p>
+<blockquote>
+<p>Always assign the document browser as your app's root view controller. Don't place the document browser in a navigation controller, tab bar, or split view, and don't present the document browser modally.</p>
+</blockquote>
+<p>Also, if you need to open the document picker within the app, you should use <a href="https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller">UIDocumentPickerViewController</a> instead of UIDocumentBrowserViewController.</p>
+<p>For more information about this part, you can refer to the open source project <a href="https://github.com/louisdh/textor">textor</a>.</p>
+<h2 id="open-in-place">Open in Place</h2>
+<p>We've mentioned the way to import external files, which creates a copy of the file to your app. <code>Open in Place</code> is the opposite, it allows you to open files from other apps and edit the original file directly.</p>
+<p>Just add a key in <code>Info.plist</code> as below:</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>LSSupportsOpeningDocumentsInPlace<span class="kw">&lt;/key&gt;</span>
+<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<p>Similar to the document sharing, you need to implement some methods in <code>SceneDelegate</code>, and <code>UIOpenURLContext</code> tells you if it is open-in-place:</p>
+<pre class="swift"><code>if context.options.openInPlace {
+
+}</code></pre>
+<p>Apps that need to access open-in-place files need to take care of two methods of <a href="https://developer.apple.com/documentation/foundation/url">URL</a>:</p>
+<ul>
+<li><a href="https://developer.apple.com/documentation/foundation/url/1779698-startaccessingsecurityscopedreso">startAccessingSecurityScopedResource</a></li>
+<li><a href="https://developer.apple.com/documentation/foundation/url/1780153-stopaccessingsecurityscopedresou">stopAccessingSecurityScopedResource</a></li>
+</ul>
+<p>Also, with open-in-place support, long pressing the app icon on iPad will show recently opened files:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_13.png" width="360"></p>
+<blockquote>
+<p>The author of the <a href="https://docs.taio.app/#/cn/integration/working-copy">Working Copy</a> app have created a great <a href="https://github.com/palmin/open-in-place">demo project</a> for open-in-place, which is recommended for reference.</p>
+</blockquote>
+<h2 id="file-bookmarks">File Bookmarks</h2>
+<p>The <a href="https://developer.apple.com/documentation/foundation/url/2143023-bookmarkdata">bookmarkData</a> API is not new:</p>
+<pre class="swift"><code>let bookmarkData = try url.bookmarkData()</code></pre>
+<p>You can use it to store recently opened files, and use <code>resolvingBookmarkData</code> to retrieve the path:</p>
+<pre class="swift"><code>let url = try URL(
+  resolvingBookmarkData: data,
+  bookmarkDataIsStale: &amp;bookmarkIsStale
+)</code></pre>
+<p>Even if a file is moved, we can still retrieve it correctly. More importantly, file bookmarks can be used to store open-in-place URLs.</p>
+<p>Or, store a file or directory opened with <code>UIDocumentPickerViewController</code> so that it can be accessed at any time.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_14.png" width="360"></p>
+<p>Taio supports this feature, so users can edit linked third-party files in Taio at any time.</p>
+<h2 id="uidocument">UIDocument</h2>
+<p><a href="https://developer.apple.com/documentation/uikit/uidocument">UIDocument</a> provides some wrappers for documents, allowing developers to more easily handle file opening, saving, and state changes, take the above mentioned <a href="https://github.com/louisdh/textor">textor</a> project for some examples, and we want to explain conflict handling a little bit.</p>
+<p>Conflict is very common for multi-editor or multi-app editing scenarios. We may edit a file in client A and client B at the same time, and then multiple copies are created on a device.</p>
+<p><a href="https://developer.apple.com/documentation/foundation/nsfileversion">NSFileVersion</a> provides a way to get conflict versions:</p>
+<pre class="swift"><code>let versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: url)</code></pre>
+<p>According to <a href="https://developer.apple.com/library/archive/documentation/DataManagement/Conceptual/DocumentBasedAppPGiOS/ResolveVersionConflicts/ResolveVersionConflicts.html">Apple's documentation</a>, the app can decide a strategy for conflicts resolving, such as always using the latest version. However, Taio is a text editor, we believe it would be a better idea to let the user compare the differences:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_15.png" width="360"></p>
+<p>This way, users are always confident about what have changed, the same logic is used for Taio's local history feature.</p>
+<h2 id="textbundle">TextBundle</h2>
+<p>The <a href="http://textbundle.org/">TextBundle</a> format defines as an open specification to standardize file sharing across apps.</p>
+<p>A TextBundle directory contains metadata and a text file, as well as an <code>assets</code> folder for images.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_16.png" width="360"></p>
+<p>With this format, documents and their referenced resources can be packaged into a single file and shared across apps that support TextBundle.</p>
+<p>You can refer to the <a href="http://textbundle.org/spec/">specification</a> of TextBundle to learn how to implement it, or take a look the <a href="https://github.com/shinyfrog/TextBundle">TextBundle</a> open source project.</p>
+<blockquote>
+<p>The above project is also an example of <a href="https://developer.apple.com/documentation/foundation/filewrapper">FileWrapper</a>.</p>
+</blockquote>
+<h2 id="trashing">Trashing</h2>
+<p>Instead of removing files directly, apps can also use the <code>trashItem</code> method of FileManager:</p>
+<pre class="swift"><code>try FileManager.default.trashItem(at: url, resultingItemURL: &amp;resultingURL)</code></pre>
+<p>Files removed by this method will be moved to the <code>Recently Deleted</code> folder in the Files app and can be restored by the user. This method essentially creates a <code>.Trash</code> hidden directory for the file and will automatically handle naming issues.</p>
+<h2 id="more-content">More Content</h2>
+<p>As we can see, it's not easy to make a file based app great, Taio has done a lot of work, and there's lots of room to improve.</p>
+<p>Apple offers a lot of tutorials for document apps, such as <a href="https://developer.apple.com/document-based-apps/">Document Based Apps</a>, as well as a series of related sessions presented at WWDC that are recommended for further exploring.</p>
+<p>Last but not least, thanks to all the third-party content referenced in this article for their contributions to the ecosystem.</p>]]></description>
+    <pubDate>Thu, 24 Dec 2020 22:24:07 +0800</pubDate>
+  </item>
+   
+  <item>
     <title><![CDATA[[!NOTE] Dec 16, 2020]]></title>
     <link>https://dev.taio.app/#/editor/toolbar</link>
     <guid isPermaLink="false">https://dev.taio.app/#/editor/toolbar</guid>
