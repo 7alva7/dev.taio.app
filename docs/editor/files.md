@@ -58,12 +58,12 @@ Apps can register supported document types in the `Info.plist` file, for example
 ```xml
 <dict>
   <key>CFBundleTypeName</key>
-  <string>Markdown File</string
-  <key>LSHandlerRank</key
-  <string>Owner</string
+  <string>Markdown File</string>
+  <key>LSHandlerRank</key>
+  <string>Owner</string>
   <key>LSItemContentTypes</key>
-  <array
-    <string>net.daringfireball.markdown</string
+  <array>
+    <string>net.daringfireball.markdown</string>
   </array>
 </dict>
 ```
@@ -75,18 +75,18 @@ To make the experience even better, we can support importing folders, not just s
 ```xml
 <dict>
   <key>CFBundleTypeName</key>
-  <string>Folder</string
+  <string>Folder</string>
   <key>CFBundleTypeOSTypes</key>
-  <array
-    <string>fold</string
+  <array>
+    <string>fold</string>
   </array>
   <key>CFBundleTypeRole</key
   <string>Viewer</string>
-  <key>LSHandlerRank</key
+  <key>LSHandlerRank</key>
   <string>Default</string>
   <key>LSItemContentTypes</key>
-  <array
-    <string>public.folder</string
+  <array>
+    <string>public.folder</string>
   </array>
 </dict>
 ```
@@ -100,20 +100,20 @@ Other than receiving files, apps can also define exclusive file types. For examp
 ```xml
 <dict>
   <key>UTypeConformsTo</key>
-  <array
-    <string>public.json</string
+  <array>
+    <string>public.json</string>
   </array>
-  <key>UTTypeDescription</key
-  <string>FileTypeTaioActionsDescription</string
-  <key>UTTypeIdentifier</key
-  <string>app.cyan.taio-actions</string
-  <key>UTTypeTagSpecification</key
-  <dict
-    <key>public.filename-extension</key
-    <string>taioactions</string
-    <key>public.mime-type</key
+  <key>UTTypeDescription</key>
+  <string>FileTypeTaioActionsDescription</string>
+  <key>UTTypeIdentifier</key>
+  <string>app.cyan.taio-actions</string>
+  <key>UTTypeTagSpecification</key>
+  <dict>
+    <key>public.filename-extension</key>
+    <string>taioactions</string>
+    <key>public.mime-type</key>
     <string>application/json</string>
-  </dict
+  </dict>
 </dict>
 ```
 
