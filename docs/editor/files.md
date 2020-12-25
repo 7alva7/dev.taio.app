@@ -165,7 +165,7 @@ Also, with open-in-place support, long pressing the app icon on iPad will show r
 
 <img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_13.png" width="360">
 
-> The author of the [Working Copy](https://docs.taio.app/#/cn/integration/working-copy) app have created a great [demo project](https://github.com/palmin/open-in-place) for open-in-place, which is recommended for reference.
+> The author of the [Working Copy](https://docs.taio.app/#/integration/working-copy) app have created a great [demo project](https://github.com/palmin/open-in-place) for open-in-place, which is recommended for reference.
 
 ## File Bookmarks
 
