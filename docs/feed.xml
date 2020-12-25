@@ -124,7 +124,7 @@
 <p>Also, with open-in-place support, long pressing the app icon on iPad will show recently opened files:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_13.png" width="360"></p>
 <blockquote>
-<p>The author of the <a href="https://docs.taio.app/#/cn/integration/working-copy">Working Copy</a> app have created a great <a href="https://github.com/palmin/open-in-place">demo project</a> for open-in-place, which is recommended for reference.</p>
+<p>The author of the <a href="https://docs.taio.app/#/integration/working-copy">Working Copy</a> app have created a great <a href="https://github.com/palmin/open-in-place">demo project</a> for open-in-place, which is recommended for reference.</p>
 </blockquote>
 <h2 id="file-bookmarks">File Bookmarks</h2>
 <p>The <a href="https://developer.apple.com/documentation/foundation/url/2143023-bookmarkdata">bookmarkData</a> API is not new:</p>
@@ -166,7 +166,7 @@
 <blockquote>
 <p>[!NOTE] Dec 24, 2020</p>
 </blockquote>]]></description>
-    <pubDate>Thu, 24 Dec 2020 23:22:54 +0800</pubDate>
+    <pubDate>Fri, 25 Dec 2020 10:30:56 +0800</pubDate>
   </item>
    
   <item>
