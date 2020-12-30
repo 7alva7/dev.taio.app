@@ -6,6 +6,159 @@
   <description>Taio Dev Notes</description>
    
   <item>
+    <title><![CDATA[Source Code Editor]]></title>
+    <link>https://dev.taio.app/#/editor/code-editor</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/editor/code-editor</guid>
+    <description><![CDATA[<h1 id="source-code-editor">Source Code Editor</h1>
+<p>Taio provides a full-fledged Markdown editor, we will share some technical details behind it.</p>
+<p>In fact, creating an editor for Markdown <strong>only</strong> is never our goal. Markdown is just a <code>mode</code> of code editing, and the editor can support other modes as well. This design offers great flexibility, for example, Taio supports running JavaScript, it uses the same editor core with different <code>language features</code> when editing JavaScript.</p>
+<p>On the other hand, even though Taio is not a general code editor, we provide syntax highlighting for commonly used programming languages, which allows users to have a better reading experience for source files.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_17.png" width="360" /></p>
+<h2 id="syntax-highlighting">Syntax Highlighting</h2>
+<p>If we were targeting Markdown only, the problem might not be that complicated. But our goal is a source code editor, which requires support for many languages, and Markdown is just one of them.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_18.png" width="360" /></p>
+<p>Unlike the web community, it's hard to find a perfect open-source solution in the iOS ecosystem, but there are a few high-quality projects we can look to for inspiration.</p>
+<p><strong>Pure Web Technologies</strong></p>
+<p>We can simply wrap web projects like <a href="https://highlightjs.org/">highlight.js</a> or <a href="https://prismjs.com/">Prism</a> with a <code>WebView</code>, the development cost will be relatively low and <strong>reading</strong> experience is acceptable.</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+  <span class="kw">&lt;head&gt;</span>
+    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;default.css&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;highlight.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+    <span class="kw">&lt;script&gt;</span>hljs.initHighlightingOnLoad();<span class="kw">&lt;/script&gt;</span>
+  <span class="kw">&lt;/head&gt;</span>
+  <span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;pre&gt;&lt;code&gt;</span>const string = &quot;Hello, World!&quot;;<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span>
+  <span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>These web projects are quite reliable, but the downside is that it's hard to achieve great writing experience like native editors.</p>
+<p><strong>Pure Native Technologies</strong></p>
+<p>We can also implement syntax analysis logic using native language, and render the result using <a href="https://developer.apple.com/documentation/appkit/textkit">TextKit</a>. For examples, take a look at the <a href="https://github.com/louisdh/savannakit">SavannaKit</a> project and its successor <a href="https://github.com/twostraws/Sourceful">Sourceful</a>.</p>
+<p>The bad news is that we have to implement tons of logic ourselves, including language lexer and editor themes.</p>
+<p><strong>Something in Between</strong></p>
+<p>It is a good idea to combine the maturity of web technologies and the performance of native technologies, and here's the idea.</p>
+<p>We can run the above JavaScript projects with <a href="https://developer.apple.com/documentation/javascriptcore">JavaScriptCore</a>, and render the result in a native way, the <a href="https://github.com/raspu/Highlightr">Highlightr</a> project is built on top of this idea.</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hljs-section&quot;</span><span class="kw">&gt;</span># Hi<span class="kw">&lt;/span&gt;</span>
+
+Hello, World!</code></pre></div>
+<p>With this solution, we can support hundreds of programming languages easily, and get numbers of editor themes for free.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_19.png" width="360" /></p>
+<blockquote>
+<p>We can get some ideas from the above projects, but maintaining our own implementation is still a worthwhile investment. The editor is a core component, and we can hardly rely on the limited resources from the community.</p>
+</blockquote>
+<h2 id="auto-completion">Auto Completion</h2>
+<p>Like many IDEs, Taio supports auto-completion, types inference, reference highlighting when editing JavaScript.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_20.png" width="360" /></p>
+<p>To implement these language features, Taio uses <a href="https://ternjs.net/">Tern</a> to analyze the code and shows the results using TextKit.</p>
+<p>Tern is a JavaScript project implemented for Node.js and browsers, it requires some work to be used on JavaScriptCore, details may be covered in a separate article later.</p>
+<blockquote>
+<p>General solution: <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a></p>
+</blockquote>
+<h2 id="code-formatting">Code Formatting</h2>
+<p>Automatic code formatting can offer a better editing experience, here are a few examples.</p>
+<p><strong>Parentheses Completion</strong></p>
+<p>After the user types <code>if (condition) {</code> and then hits a line break, what should appear on the editor is:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_21.png" width="360" /></p>
+<p>To implement this, we need to use a stack for <a href="https://leetcode.com/problems/valid-parentheses/">parentheses matching</a> and then fill in the spaces based on the indentation level.</p>
+<blockquote>
+<p>Taio also detects whether the current code is indented based on spaces or tabs, and fills in different characters.</p>
+</blockquote>
+<p><strong>List Completion</strong></p>
+<p>The editor needs to auto-complete the formatting of Markdown lists, including unordered lists, ordered lists, and task lists, after a line break is inserted.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_22.png" width="360" /></p>
+<p>This is done by detecting if the previous line matches a regular expression, E.g. for ordered lists:</p>
+<pre class="regexp"><code>^ *(\\d+)\\. +</code></pre>
+<p>We can find the line number from the first match group, and generate the next line. Similarly, <code>^ *- +\\\[[xX]\\\] +</code> is used for task lists.</p>
+<p>The above examples all use <code>UITextViewDelegate</code>'s <a href="https://developer.apple.com/documentation/uikit/uitextviewdelegate/1618630-textview">shouldChangeTextIn</a> method to implement:</p>
+<pre class="swift"><code>func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -&gt; Bool {
+  if text == &quot;\n&quot; {
+    // Format the code
+    return false
+  }
+  return true
+}</code></pre>
+<p><strong>Tabs to Spaces</strong></p>
+<p>Similar to many IDEs, Taio also supports converting tabs to spaces after they are typed on the keyboard. The approach is similar, just detect if <code>\t</code> is entered in <code>shouldChangeTextIn</code>.</p>
+<blockquote>
+<p>It may be better to make it configurable.</p>
+</blockquote>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<p><code>UITextView</code> natively supports shortcuts such as copy and paste, but to bring the experience closer to a desktop editor, we have provided Taio with richer support for:</p>
+<ul>
+<li><code>⌘ -</code> increase font size, <code>⌘ +</code> decrease font size, <code>⌘ 0</code> reset font size</li>
+<li><code>⌘ B</code> toggle bold, <code>⌘ I</code> toggle italic, <code>⌘ U</code> toggle underline</li>
+<li><code>⌘ 1</code> heading level 1, <code>⌘ 2</code> heading level 2, <code>⌘ 3</code> heading level 3</li>
+<li><code>⌘ [</code> decrease indent, <code>⌘ ]</code> increase indent</li>
+</ul>
+<p>These shortcuts are intuitive to users, hold down <code>⌘</code> can show all supported shortcuts.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_23.png" width="360" /></p>
+<p>Implementing these just requires overriding the <a href="https://developer.apple.com/documentation/uikit/uiresponder/1621141-keycommands">keyCommands</a> method of <code>UIResponder</code>:</p>
+<pre class="swift"><code>override var keyCommands: [UIKeyCommand]? {
+  return [
+    UIKeyCommand(
+      title: &quot;Reset Font Size&quot;,
+      image: nil,
+      action: #selector(resetFontSize),
+      input: &quot;0&quot;,
+      modifierFlags: .command,
+      propertyList: nil
+    )
+  ]
+}</code></pre>
+<blockquote>
+<p>We need to make sure the corresponding UIResponder can be firstResponder.</p>
+</blockquote>
+<h2 id="fonts">Fonts</h2>
+<p>Taio supports all fonts on the device:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_24.png" width="360" /></p>
+<p>We use <a href="https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller">UIFontPickerViewController</a> for this feature, but if you want to support user-installed fonts, you need to enable it in <code>Info.entitlements</code>:</p>
+<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>com.apple.developer.user-fonts<span class="kw">&lt;/key&gt;</span>
+<span class="kw">&lt;array&gt;</span>
+  <span class="kw">&lt;string&gt;</span>app-usage<span class="kw">&lt;/string&gt;</span>
+<span class="kw">&lt;/array&gt;</span></code></pre></div>
+<p>In addition, FontPicker does not provide a good way to select <code>systemFont</code>, which would make it inconvenient to restore the default settings. What we did was to wrap the FontPicker to another UIViewController and add a <code>System Font</code> button to its navigation bar.</p>
+<blockquote>
+<p>We will lose the search bar, and there may be a better way to do it.</p>
+</blockquote>
+<p>When working with source code, we use a monospaced font by default:</p>
+<pre class="swift"><code>let font: UIFont? = {
+  if #available(iOS 13.0, *) {
+    return .monospacedSystemFont(ofSize: 15, weight: .regular)
+  } else {
+    return UIFont(name: &quot;Menlo-Regular&quot;, size: 15)
+  }
+}()</code></pre>
+<h2 id="line-spacing">Line Spacing</h2>
+<p>We use the <a href="https://developer.apple.com/documentation/uikit/nsmutableparagraphstyle/1524596-lineheightmultiple">lineHeightMultiple</a> feature for line spacing:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_25.png" width="360" /></p>
+<p>If it leads to text misalignment, we can adjust it with <code>NSLayoutManager</code>'s <a href="https://developer.apple.com/documentation/uikit/nslayoutmanager/1403158-drawglyphs">drawGlyphs</a> method:</p>
+<pre class="swift"><code>override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
+  // Change origin accordingly
+  super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
+}</code></pre>
+<h2 id="line-numbers">Line Numbers</h2>
+<p>It is very common for code editors to show line numbers, and this option can be enabled in Taio as well:</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_26.png" width="360" /></p>
+<p>This is also done in <code>NSLayoutManager</code>, by overriding the <a href="https://developer.apple.com/documentation/uikit/nslayoutmanager/1402949-drawbackground">drawBackground</a> method, take the <a href="https://github.com/illyabusigin/CYRTextView">CYRTextView</a> project as an example.</p>
+<blockquote>
+<p>In the same way, we can also implement the highlighting effect for the selected line.</p>
+</blockquote>
+<h2 id="parentheses-matching">Parentheses Matching</h2>
+<p>We have already mentioned the method to find parentheses pair, and similar logic can be used to implement the parentheses highlighting feature provided in Xcode.</p>
+<p>When the cursor goes through a parenthesis, we can find where the corresponding parenthesis is and highlight it.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_27.png" width="360" /></p>
+<p>This will help the user identify a block of code, or a link in Markdown.</p>
+<h2 id="more-content">More Content</h2>
+<p>The above is a summary of our experience in the past years of development, and we hope it will be helpful to you.</p>
+<p>To support us, please try our app <a href="https://taio.app">Taio</a> and let your friends know.</p>
+<p>We will share more technical details in upcoming articles, please stay tuned.</p>
+<blockquote>
+<p>[!NOTE] Dec 30, 2020</p>
+</blockquote>]]></description>
+    <pubDate>Wed, 30 Dec 2020 23:27:43 +0800</pubDate>
+  </item>
+   
+  <item>
     <title><![CDATA[Hello, World!]]></title>
     <link>https://dev.taio.app/#/README</link>
     <guid isPermaLink="false">https://dev.taio.app/#/README</guid>
