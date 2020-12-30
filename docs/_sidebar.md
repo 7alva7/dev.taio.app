@@ -2,4 +2,5 @@
   - [README](README.md)
 - Editor
   - [Modern File Apps](editor/files.md)
+  - [Source Code Editor](editor/code-editor.md)
   - [Toolbar Experience](editor/toolbar.md)
