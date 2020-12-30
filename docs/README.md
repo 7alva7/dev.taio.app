@@ -8,6 +8,10 @@ We are going to share every secret about Taio, including development skills, les
 
 Stay tuned.
 
+## Notice
+
+You are permitted by default to share our articles, no need to ask for permission first, the only restriction is that the original link should be kept.
+
 ## Contact Us
 
 Feel free to reach us out:
