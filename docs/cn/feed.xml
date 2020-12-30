@@ -6,6 +6,26 @@
   <description>Taio 开发笔记</description>
    
   <item>
+    <title><![CDATA[Hello, World!]]></title>
+    <link>https://dev.taio.app/#/cn/README</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/cn/README</guid>
+    <description><![CDATA[<h1 id="hello-world">Hello, World!</h1>
+<p>我们是打造 <a href="https://taio.app/cn/">Taio</a> 应用的团队。</p>
+<p>在过去的几年里，我们从社区学到了很多东西，是时候回馈大家了。</p>
+<p>我们将分享关于 Taio 每一个秘密，包括开发技巧、经验教训、设计思路等。</p>
+<p>敬请期待。</p>
+<h2 id="注意事项">注意事项</h2>
+<p>默认允许您分享我们的文章，不需要先询问，唯一的限制是要保留原文链接。</p>
+<h2 id="联系我们">联系我们</h2>
+<p>欢迎随时与我们联系：</p>
+<ul>
+<li>邮箱：<a href="mailto:hi@taio.app">hi@taio.app</a></li>
+<li>Twitter：<a href="https://twitter.com/TaioApp" class="uri">https://twitter.com/TaioApp</a></li>
+</ul>]]></description>
+    <pubDate>Wed, 30 Dec 2020 14:54:55 +0800</pubDate>
+  </item>
+   
+  <item>
     <title><![CDATA[编辑器工具栏体验]]></title>
     <link>https://dev.taio.app/#/cn/editor/toolbar</link>
     <guid isPermaLink="false">https://dev.taio.app/#/cn/editor/toolbar</guid>
@@ -267,24 +287,6 @@ override func toggleUnderline(_ sender: Any?) {
 <p>[!NOTE] 2020 年 12 月 24 日</p>
 </blockquote>]]></description>
     <pubDate>Thu, 24 Dec 2020 22:26:17 +0800</pubDate>
-  </item>
-   
-  <item>
-    <title><![CDATA[Hello, World!]]></title>
-    <link>https://dev.taio.app/#/cn/README</link>
-    <guid isPermaLink="false">https://dev.taio.app/#/cn/README</guid>
-    <description><![CDATA[<h1 id="hello-world">Hello, World!</h1>
-<p>我们是打造 <a href="https://taio.app/cn/">Taio</a> 应用的团队。</p>
-<p>在过去的几年里，我们从社区学到了很多东西，是时候回馈大家了。</p>
-<p>我们将分享关于 Taio 每一个秘密，包括开发技巧、经验教训、设计思路等。</p>
-<p>敬请期待。</p>
-<h1 id="联系我们">联系我们</h1>
-<p>欢迎随时与我们联系：</p>
-<ul>
-<li>邮箱：<a href="mailto:hi@taio.app">hi@taio.app</a></li>
-<li>Twitter：<a href="https://twitter.com/TaioApp" class="uri">https://twitter.com/TaioApp</a></li>
-</ul>]]></description>
-    <pubDate>Wed, 16 Dec 2020 14:18:54 +0800</pubDate>
   </item>
   
 </channel>
