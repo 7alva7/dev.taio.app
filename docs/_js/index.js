@@ -76,9 +76,13 @@ function localizePageTitle(cn) {
     cn: 'Taio 开发笔记',
   }
 
-  if (cn && document.title === titles.en) {
-    document.title = titles.cn;
-  } else if (document.title === titles.cn) {
-    document.title = titles.en;
+  if (cn) {
+    if (document.title === titles.en) {
+      document.title = titles.cn;
+    }
+  } else {
+    if (document.title === titles.cn) {
+      document.title = titles.en;
+    }
   }
 }
