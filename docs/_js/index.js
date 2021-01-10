@@ -1,6 +1,7 @@
 localizePageTitle(location.href.indexOf('/#/cn/') !== -1);
 
 window.$docsify = {
+  themeColor: '#EB3C6B',
   alias: {
     '/((?!cn).)*/_sidebar.md': '/_sidebar.md',
     '/((?!cn).)*/_navbar.md': '/_navbar.md',
