@@ -17,30 +17,30 @@
 <h2 id="syntax-highlighting">Syntax Highlighting</h2>
 <p>If we were targeting Markdown only, the problem might not be that complicated. But our goal is a source code editor, which requires support for many languages, and Markdown is just one of them.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_18.png" width="360" /></p>
-<p>Unlike the web community, it's hard to find a perfect open-source solution in the iOS ecosystem, but there are a few high-quality projects we can look to for inspiration.</p>
+<p>Unlike the web community, it’s hard to find a perfect open-source solution in the iOS ecosystem, but there are a few high-quality projects we can look to for inspiration.</p>
 <p><strong>Pure Web Technologies</strong></p>
 <p>We can simply wrap web projects like <a href="https://highlightjs.org/">highlight.js</a> or <a href="https://prismjs.com/">Prism</a> with a <code>WebView</code>, the development cost will be relatively low and <strong>reading</strong> experience is acceptable.</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
-<span class="kw">&lt;html&gt;</span>
-  <span class="kw">&lt;head&gt;</span>
-    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;default.css&quot;</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;highlight.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
-    <span class="kw">&lt;script&gt;</span>hljs.initHighlightingOnLoad();<span class="kw">&lt;/script&gt;</span>
-  <span class="kw">&lt;/head&gt;</span>
-  <span class="kw">&lt;body&gt;</span>
-    <span class="kw">&lt;pre&gt;&lt;code&gt;</span>const string = &quot;Hello, World!&quot;;<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span>
-  <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre></div>
-<p>These web projects are quite reliable, but the downside is that it's hard to achieve great writing experience like native editors.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb1-1" title="1"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;default.css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;highlight.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="kw">&lt;script&gt;</span>hljs.initHighlightingOnLoad();<span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="kw">&lt;pre&gt;&lt;code&gt;</span>const string = &quot;Hello, World!&quot;;<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
+<p>These web projects are quite reliable, but the downside is that it’s hard to achieve great writing experience like native editors.</p>
 <p><strong>Pure Native Technologies</strong></p>
 <p>We can also implement syntax analysis logic using native language, and render the result using <a href="https://developer.apple.com/documentation/appkit/textkit">TextKit</a>. For examples, take a look at the <a href="https://github.com/louisdh/savannakit">SavannaKit</a> project and its successor <a href="https://github.com/twostraws/Sourceful">Sourceful</a>.</p>
 <p>The bad news is that we have to implement tons of logic ourselves, including language lexer and editor themes.</p>
 <p><strong>Something in Between</strong></p>
-<p>It is a good idea to combine the maturity of web technologies and the performance of native technologies, and here's the idea.</p>
+<p>It is a good idea to combine the maturity of web technologies and the performance of native technologies, and here’s the idea.</p>
 <p>We can run the above JavaScript projects with <a href="https://developer.apple.com/documentation/javascriptcore">JavaScriptCore</a>, and render the result in a native way, the <a href="https://github.com/raspu/Highlightr">Highlightr</a> project is built on top of this idea.</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hljs-section&quot;</span><span class="kw">&gt;</span># Hi<span class="kw">&lt;/span&gt;</span>
-
-Hello, World!</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hljs-section&quot;</span><span class="kw">&gt;</span># Hi<span class="kw">&lt;/span&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">Hello, World!</a></code></pre></div>
 <p>With this solution, we can support hundreds of programming languages easily, and get numbers of editor themes for free.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_19.png" width="360" /></p>
 <blockquote>
@@ -69,7 +69,7 @@ Hello, World!</code></pre></div>
 <p>This is done by detecting if the previous line matches a regular expression, E.g. for ordered lists:</p>
 <pre class="regexp"><code>^ *(\\d+)\\. +</code></pre>
 <p>We can find the line number from the first match group, and generate the next line. Similarly, <code>^ *- +\\\[[xX]\\\] +</code> is used for task lists.</p>
-<p>The above examples all use <code>UITextViewDelegate</code>'s <a href="https://developer.apple.com/documentation/uikit/uitextviewdelegate/1618630-textview">shouldChangeTextIn</a> method to implement:</p>
+<p>The above examples all use <code>UITextViewDelegate</code>’s <a href="https://developer.apple.com/documentation/uikit/uitextviewdelegate/1618630-textview">shouldChangeTextIn</a> method to implement:</p>
 <pre class="swift"><code>func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -&gt; Bool {
   if text == &quot;\n&quot; {
     // Format the code
@@ -112,10 +112,10 @@ Hello, World!</code></pre></div>
 <p>Taio supports all fonts on the device:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_24.png" width="360" /></p>
 <p>We use <a href="https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller">UIFontPickerViewController</a> for this feature, but if you want to support user-installed fonts, you need to enable it in <code>Info.entitlements</code>:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>com.apple.developer.user-fonts<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;array&gt;</span>
-  <span class="kw">&lt;string&gt;</span>app-usage<span class="kw">&lt;/string&gt;</span>
-<span class="kw">&lt;/array&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;key&gt;</span>com.apple.developer.user-fonts<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">&lt;string&gt;</span>app-usage<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">&lt;/array&gt;</span></a></code></pre></div>
 <p>In addition, FontPicker does not provide a good way to select <code>systemFont</code>, which would make it inconvenient to restore the default settings. What we did was to wrap the FontPicker to another UIViewController and add a <code>System Font</code> button to its navigation bar.</p>
 <blockquote>
 <p>We will lose the search bar, and there may be a better way to do it.</p>
@@ -131,7 +131,7 @@ Hello, World!</code></pre></div>
 <h2 id="line-spacing">Line Spacing</h2>
 <p>We use the <a href="https://developer.apple.com/documentation/uikit/nsmutableparagraphstyle/1524596-lineheightmultiple">lineHeightMultiple</a> feature for line spacing:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_25.png" width="360" /></p>
-<p>If it leads to text misalignment, we can adjust it with <code>NSLayoutManager</code>'s <a href="https://developer.apple.com/documentation/uikit/nslayoutmanager/1403158-drawglyphs">drawGlyphs</a> method:</p>
+<p>If it leads to text misalignment, we can adjust it with <code>NSLayoutManager</code>’s <a href="https://developer.apple.com/documentation/uikit/nslayoutmanager/1403158-drawglyphs">drawGlyphs</a> method:</p>
 <pre class="swift"><code>override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
   // Change origin accordingly
   super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
@@ -164,7 +164,7 @@ Hello, World!</code></pre></div>
     <guid isPermaLink="false">https://dev.taio.app/#/README</guid>
     <description><![CDATA[<h1 id="hello-world">Hello, World!</h1>
 <p>We are the team who build the <a href="https://taio.app">Taio</a> app.</p>
-<p>In the past few years, we have learned a lot from the community, and it's time to give back.</p>
+<p>In the past few years, we have learned a lot from the community, and it’s time to give back.</p>
 <p>We are going to share every secret about Taio, including development skills, lesson learned, design thinking, and more.</p>
 <p>Stay tuned.</p>
 <h2 id="notice">Notice</h2>
@@ -173,7 +173,7 @@ Hello, World!</code></pre></div>
 <p>Feel free to reach us out:</p>
 <ul>
 <li>Email: <a href="mailto:hi@taio.app">hi@taio.app</a></li>
-<li>Twitter: <a href="https://twitter.com/TaioApp" class="uri">https://twitter.com/TaioApp</a></li>
+<li>Twitter: <a href="https://twitter.com/TaioApp">https://twitter.com/TaioApp</a></li>
 </ul>]]></description>
     <pubDate>Wed, 30 Dec 2020 14:54:55 +0800</pubDate>
   </item>
@@ -183,24 +183,24 @@ Hello, World!</code></pre></div>
     <link>https://dev.taio.app/#/editor/files</link>
     <guid isPermaLink="false">https://dev.taio.app/#/editor/files</guid>
     <description><![CDATA[<h1 id="modern-file-apps">Modern File Apps</h1>
-<p>Taio's Markdown editor is based on a completely open file system, which provides the basis for cross-app collaboration as well as convenient data transmission, this article will cover some key points to be aware of when developing such an app.</p>
-<p>Of course, we are assuming that your goal is to be a good citizen on iOS and contribute to the great ecosystem. If your direction is to create private files or formats, this article won't be very helpful to you.</p>
+<p>Taio’s Markdown editor is based on a completely open file system, which provides the basis for cross-app collaboration as well as convenient data transmission, this article will cover some key points to be aware of when developing such an app.</p>
+<p>Of course, we are assuming that your goal is to be a good citizen on iOS and contribute to the great ecosystem. If your direction is to create private files or formats, this article won’t be very helpful to you.</p>
 <h2 id="file-sharing">File Sharing</h2>
-<p>Early iOS didn't have the foundation for these great features until Apple released the <a href="https://support.apple.com/en-us/HT206481">Files App</a>, and a bunch of APIs made for file sharing.</p>
+<p>Early iOS didn’t have the foundation for these great features until Apple released the <a href="https://support.apple.com/en-us/HT206481">Files App</a>, and a bunch of APIs made for file sharing.</p>
 <p>The Files app provides a unified interface for shared documents, and developers can expose the <code>Documents</code> directory to the Files app by enabling <code>UIFileSharingEnabled</code> in <code>Info.plist</code>.</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>UIFileSharingEnabled<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;key&gt;</span>UIFileSharingEnabled<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;true/&gt;</span></a></code></pre></div>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_8.png" width="360"></p>
 <h2 id="icloud-drive">iCloud Drive</h2>
-<p>The <code>Documents</code> directory mentioned above is local. iOS also offers a cloud storage service called <code>iCloud Drive</code>, there're a number of advantages:</p>
+<p>The <code>Documents</code> directory mentioned above is local. iOS also offers a cloud storage service called <code>iCloud Drive</code>, there’re a number of advantages:</p>
 <ul>
 <li>iCloud account based, no need to create user system, no additional logins for users</li>
 <li>Seamless integration with existing file management APIs</li>
-<li>Uses the user's iCloud quota, developers don't have to pay for it</li>
+<li>Uses the user’s iCloud quota, developers don’t have to pay for it</li>
 </ul>
 <p>So, when it comes to creating document synchronization on iOS, iCloud Drive is the way to go.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_9.png" width="360"></p>
-<p>It's also simple to use - just assign an iCloud Container to your app, and then use <a href="https://developer.apple.com/documentation/foundation/filemanager">FileManager</a> to get the path:</p>
+<p>It’s also simple to use - just assign an iCloud Container to your app, and then use <a href="https://developer.apple.com/documentation/foundation/filemanager">FileManager</a> to get the path:</p>
 <pre class="swift"><code>let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)</code></pre>
 <p>Your code needs to handle cases where <code>url</code> is <code>nil</code>, such as when the user is not logged into iCloud, or when the app is not granted iCloud Drive access.</p>
 <blockquote>
@@ -210,81 +210,81 @@ Hello, World!</code></pre></div>
 <p>The above two solutions provide Files app support for local files and iCloud files respectively, but still cannot handle the case where the file is in other locations. For example, apps that support app extensions may store files in a <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html">Shared Container</a> to make sure both the main app and app extensions can access.</p>
 <p>For this case, we can create <a href="https://developer.apple.com/documentation/fileprovider">File Provider Extension</a> to provide files to the Files app.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_10.png" width="360"></p>
-<p>File Provider APIs are fairly straightforward, we recommend taking <a href="https://ish.app/">ish</a> app's <a href="https://github.com/ish-app/ish/tree/master/app/FileProvider">File Provider</a> as a complete example, so we won't go over it here.</p>
+<p>File Provider APIs are fairly straightforward, we recommend taking <a href="https://ish.app/">ish</a> app’s <a href="https://github.com/ish-app/ish/tree/master/app/FileProvider">File Provider</a> as a complete example, so we won’t go over it here.</p>
 <blockquote>
 <p>In addition, your app can also support <a href="https://developer.apple.com/documentation/fileproviderui">File Provider UI Extension</a>, which provides custom actions for the Files app.</p>
 </blockquote>
 <h2 id="document-types">Document types</h2>
 <p>Apps can register supported document types in the <code>Info.plist</code> file, for example:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Markdown File<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Owner<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>net.daringfireball.markdown<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-<span class="kw">&lt;/dict&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">&lt;string&gt;</span>Markdown File<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">&lt;string&gt;</span>Owner<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="kw">&lt;string&gt;</span>net.daringfireball.markdown<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">&lt;/dict&gt;</span></a></code></pre></div>
 <p>This allows you to receive files shared via AirDrop or Share Sheet and then handle them using the methods associated with <code>AppDelegate</code> or <code>SceneDelegate</code> (Multiple Windows).</p>
 <p>To make the experience even better, we can support importing folders, not just single files:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Folder<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeOSTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>fold<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeRole<span class="kw">&lt;/key</span>
-  <span class="er">&lt;string</span><span class="kw">&gt;</span>Viewer<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Default<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>public.folder<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-<span class="er">&lt;</span>/dict&gt;</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">&lt;string&gt;</span>Folder<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">&lt;key&gt;</span>CFBundleTypeOSTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">&lt;string&gt;</span>fold<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="kw">&lt;key&gt;</span>CFBundleTypeRole<span class="kw">&lt;/key</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="er">&lt;string</span><span class="kw">&gt;</span>Viewer<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="kw">&lt;string&gt;</span>Default<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">&lt;string&gt;</span>public.folder<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="er">&lt;</span>/dict&gt;</a></code></pre></div>
 <blockquote>
 <p>Taio allows the user to save imported folders to a location.</p>
 </blockquote>
 <h2 id="exported-type-identifiers">Exported Type Identifiers</h2>
-<p>Other than receiving files, apps can also define exclusive file types. For example, Taio's action is essentially a JSON file, which we define as <code>taioactions</code>:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTypeConformsTo<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>public.json<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeDescription<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>FileTypeTaioActionsDescription<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeIdentifier<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>app.cyan.taio-actions<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeTagSpecification<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;dict&gt;</span>
-    <span class="kw">&lt;key&gt;</span>public.filename-extension<span class="kw">&lt;/key&gt;</span>
-    <span class="kw">&lt;string&gt;</span>taioactions<span class="kw">&lt;/string&gt;</span>
-    <span class="kw">&lt;key&gt;</span>public.mime-type<span class="kw">&lt;/key&gt;</span>
-    <span class="kw">&lt;string&gt;</span>application/json<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/dict&gt;</span>
-<span class="kw">&lt;/dict&gt;</span></code></pre></div>
+<p>Other than receiving files, apps can also define exclusive file types. For example, Taio’s action is essentially a JSON file, which we define as <code>taioactions</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;key&gt;</span>UTypeConformsTo<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;string&gt;</span>public.json<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">  <span class="kw">&lt;key&gt;</span>UTTypeDescription<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="kw">&lt;string&gt;</span>FileTypeTaioActionsDescription<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="kw">&lt;key&gt;</span>UTTypeIdentifier<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="kw">&lt;string&gt;</span>app.cyan.taio-actions<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="kw">&lt;key&gt;</span>UTTypeTagSpecification<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">&lt;key&gt;</span>public.filename-extension<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">&lt;string&gt;</span>taioactions<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    <span class="kw">&lt;key&gt;</span>public.mime-type<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">    <span class="kw">&lt;string&gt;</span>application/json<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">  <span class="kw">&lt;/dict&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="kw">&lt;/dict&gt;</span></a></code></pre></div>
 <p>Users can see the type description and other apps can register this type as supported:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_11.png" width="360"></p>
 <blockquote>
 <p>The above <code>FileTypeTaioActionsDescription</code> is the key to the localizable string.</p>
 </blockquote>
 <h2 id="uidocumentbrowserviewcontroller">UIDocumentBrowserViewController</h2>
-<p>If your app is fully document-based, using a <a href="https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller">UIDocumentBrowserViewController</a> might be a good way to go, and Apple's <a href="https://www.apple.com/iwork/">iWork</a> suite is implemented this way.</p>
+<p>If your app is fully document-based, using a <a href="https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller">UIDocumentBrowserViewController</a> might be a good way to go, and Apple’s <a href="https://www.apple.com/iwork/">iWork</a> suite is implemented this way.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_12.png" width="360"></p>
-<p>Taio wasn't implemented like that, because we wanted more UI flexibility, but Apple's <a href="https://developer.apple.com/documentation/uikit/view_controllers/adding_a_document_browser_to_your_app">documentation</a> explicitly states:</p>
+<p>Taio wasn’t implemented like that, because we wanted more UI flexibility, but Apple’s <a href="https://developer.apple.com/documentation/uikit/view_controllers/adding_a_document_browser_to_your_app">documentation</a> explicitly states:</p>
 <blockquote>
-<p>Always assign the document browser as your app's root view controller. Don't place the document browser in a navigation controller, tab bar, or split view, and don't present the document browser modally.</p>
+<p>Always assign the document browser as your app’s root view controller. Don’t place the document browser in a navigation controller, tab bar, or split view, and don’t present the document browser modally.</p>
 </blockquote>
 <p>Also, if you need to open the document picker within the app, you should use <a href="https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller">UIDocumentPickerViewController</a> instead of UIDocumentBrowserViewController.</p>
 <p>For more information about this part, you can refer to the open source project <a href="https://github.com/louisdh/textor">textor</a>.</p>
 <h2 id="open-in-place">Open in Place</h2>
-<p>We've mentioned the way to import external files, which creates a copy of the file to your app. <code>Open in Place</code> is the opposite, it allows you to open files from other apps and edit the original file directly.</p>
+<p>We’ve mentioned the way to import external files, which creates a copy of the file to your app. <code>Open in Place</code> is the opposite, it allows you to open files from other apps and edit the original file directly.</p>
 <p>Just add a key in <code>Info.plist</code> as below:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>LSSupportsOpeningDocumentsInPlace<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;key&gt;</span>LSSupportsOpeningDocumentsInPlace<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;true/&gt;</span></a></code></pre></div>
 <p>Similar to the document sharing, you need to implement some methods in <code>SceneDelegate</code>, and <code>UIOpenURLContext</code> tells you if it is open-in-place:</p>
 <pre class="swift"><code>if context.options.openInPlace {
 
@@ -316,9 +316,9 @@ Hello, World!</code></pre></div>
 <p>Conflict is very common for multi-editor or multi-app editing scenarios. We may edit a file in client A and client B at the same time, and then multiple copies are created on a device.</p>
 <p><a href="https://developer.apple.com/documentation/foundation/nsfileversion">NSFileVersion</a> provides a way to get conflict versions:</p>
 <pre class="swift"><code>let versions = NSFileVersion.unresolvedConflictVersionsOfItem(at: url)</code></pre>
-<p>According to <a href="https://developer.apple.com/library/archive/documentation/DataManagement/Conceptual/DocumentBasedAppPGiOS/ResolveVersionConflicts/ResolveVersionConflicts.html">Apple's documentation</a>, the app can decide a strategy for conflicts resolving, such as always using the latest version. However, Taio is a text editor, we believe it would be a better idea to let the user compare the differences:</p>
+<p>According to <a href="https://developer.apple.com/library/archive/documentation/DataManagement/Conceptual/DocumentBasedAppPGiOS/ResolveVersionConflicts/ResolveVersionConflicts.html">Apple’s documentation</a>, the app can decide a strategy for conflicts resolving, such as always using the latest version. However, Taio is a text editor, we believe it would be a better idea to let the user compare the differences:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_15.png" width="360"></p>
-<p>This way, users are always confident about what have changed, the same logic is used for Taio's local history feature.</p>
+<p>This way, users are always confident about what have changed, the same logic is used for Taio’s local history feature.</p>
 <h2 id="textbundle">TextBundle</h2>
 <p>The <a href="http://textbundle.org/">TextBundle</a> format defines as an open specification to standardize file sharing across apps.</p>
 <p>A TextBundle directory contains metadata and a text file, as well as an <code>assets</code> folder for images.</p>
@@ -333,7 +333,7 @@ Hello, World!</code></pre></div>
 <pre class="swift"><code>try FileManager.default.trashItem(at: url, resultingItemURL: &amp;resultingURL)</code></pre>
 <p>Files removed by this method will be moved to the <code>Recently Deleted</code> folder in the Files app and can be restored by the user. This method essentially creates a <code>.Trash</code> hidden directory for the file and will automatically handle naming issues.</p>
 <h2 id="more-content">More Content</h2>
-<p>As we can see, it's not easy to make a file based app great, Taio has done a lot of work, and there's lots of room to improve.</p>
+<p>As we can see, it’s not easy to make a file based app great, Taio has done a lot of work, and there’s lots of room to improve.</p>
 <p>Apple offers a lot of tutorials for document apps, such as <a href="https://developer.apple.com/document-based-apps/">Document Based Apps</a>, as well as a series of related sessions presented at WWDC that are recommended for further exploring.</p>
 <p>Last but not least, thanks to all the third-party content referenced in this article for their contributions to the ecosystem.</p>
 <blockquote>
@@ -353,7 +353,7 @@ Hello, World!</code></pre></div>
 <h2 id="inputaccessoryview">inputAccessoryView</h2>
 <p>To implement such a toolbar on iOS, we mostly use <code>inputAccessoryView</code> instead of listening to the keyboard frame changes:</p>
 <pre class="swift"><code>textView.inputAccessoryView = UIView(...)</code></pre>
-<p>You can implement this toolbar using any <code>UIView</code>, but that's not the recommended way. To implement a native-style toolbar like many 1st-party apps by Apple, we should use <code>UIInputView</code> and provide it with the keyboard style:</p>
+<p>You can implement this toolbar using any <code>UIView</code>, but that’s not the recommended way. To implement a native-style toolbar like many 1st-party apps by Apple, we should use <code>UIInputView</code> and provide it with the keyboard style:</p>
 <pre class="swift"><code>textView.inputAccessoryView = UIInputView(... , inputViewStyle: .keyboard)</code></pre>
 <p>iOS will automatically provide you with the exact same style as the keyboard background, without having to manage its color yourself.</p>
 <h2 id="safe-area">Safe Area</h2>
@@ -361,7 +361,7 @@ Hello, World!</code></pre></div>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_2.png" width="360" /></p>
 <p>Instead of having the <code>Home Indicator</code> cover your toolbar.</p>
 <h2 id="inputview">inputView</h2>
-<p>When necessary, we may need to provide a &quot;secondary keyboard&quot; for the TextView, such as the symbol panel and snippet panel in Taio:</p>
+<p>When necessary, we may need to provide a “secondary keyboard” for the TextView, such as the symbol panel and snippet panel in Taio:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_3.png" width="360" /></p>
 <p>This is achieved by overriding the <code>TextView.inputView</code> with:</p>
 <pre class="swift"><code>textView.inputView = UIView(...)
@@ -369,19 +369,19 @@ textView.reloadInputViews()</code></pre>
 <p>It is worth noting that there is a very small issue here that happens when the user is using some input methods (E.g. Pinyin for Chinese).</p>
 <p>When there are some words in the selection area of the input method, switch the keyboard to the interface implemented by <code>inputView</code> and then switch back again. At this point, the selection area will suddenly disappear and the user feels a <strong>sudden</strong> change in the height of the keyboard.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_4.png" width="720" /></p>
-<p>This issue appears in the vast majority of apps, including 1st-party apps by Apple, but we didn't let it go.</p>
+<p>This issue appears in the vast majority of apps, including 1st-party apps by Apple, but we didn’t let it go.</p>
 <p>We noticed that <strong>after the user moved the cursor, the selection would suddenly come back</strong>. So we rewrote the <code>setInputView</code> method, when an inputView change is detected, we do:</p>
 <ul>
-<li>Move the cursor programmatically (direction doesn't matter)</li>
+<li>Move the cursor programmatically (direction doesn’t matter)</li>
 <li>Move it back</li>
 </ul>
-<p>With this little trick, the user doesn't feel any sudden changes and everything is perfect.</p>
+<p>With this little trick, the user doesn’t feel any sudden changes and everything is perfect.</p>
 <h2 id="input-clicks">Input Clicks</h2>
-<p>Since the actions take place in the extended area of the keyboard, it's natural to add keyboard sounds (which the user can choose to turn off) to these actions.</p>
+<p>Since the actions take place in the extended area of the keyboard, it’s natural to add keyboard sounds (which the user can choose to turn off) to these actions.</p>
 <p><code>UIDevice</code> has a <code>playInputClick</code> method, which can be used by implementing <code>enableInputClicksWhenVisible</code>.</p>
 <p>But there is a more simple (and stupid) approach:</p>
 <pre class="swift"><code>AudioServicesPlaySystemSound(1104)</code></pre>
-<p><em>It's pure magic.</em></p>
+<p><em>It’s pure magic.</em></p>
 <h2 id="pointer-interactions">Pointer Interactions</h2>
 <p>Since our app expects the user to use it on an iPad with a magic keyboard connected, it is extremely important that the buttons on the keyboard support the <code>Hover</code> effect of the trackpad.</p>
 <p>Instead of saying too much here, you can find many WWDC sessions on the Apple developer website.</p>
@@ -391,10 +391,10 @@ textView.reloadInputViews()</code></pre>
 <p>In short, users will expect every step to be accurate, rather than scrolling to an unexpected position, which is important to improve user confidence.</p>
 <p>If your scrollView has a fixed page size, you can simply achieve this using the <code>paging</code> feature:</p>
 <pre class="swift"><code>scrollView.isPagingEnabled = true</code></pre>
-<p>But as you may have noticed, Taio's toolbar groups buttons, so we'll have to implement our own paging algorithm.</p>
+<p>But as you may have noticed, Taio’s toolbar groups buttons, so we’ll have to implement our own paging algorithm.</p>
 <p>Our first step is to increase the deceleration rate of the scrollView so that scrolling can stop quicker:</p>
 <pre class="swift"><code>scrollView.decelerationRate = .fast</code></pre>
-<p>Just by doing this step, you'll feel a big improvement in the toolbar because it won't scroll like crazy anymore. After that, we use the following delegate method to fix up the target position:</p>
+<p>Just by doing this step, you’ll feel a big improvement in the toolbar because it won’t scroll like crazy anymore. After that, we use the following delegate method to fix up the target position:</p>
 <pre class="swift"><code>func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer&lt;CGPoint&gt;) {
 
 }</code></pre>
@@ -403,18 +403,18 @@ textView.reloadInputViews()</code></pre>
 <p>You can check the <code>velocity</code> so that the user can scroll slowly and stop at any position.</p>
 </blockquote>
 <h2 id="cursor-movement">Cursor Movement</h2>
-<p>As you may have noticed, Taio's toolbar provides a feature that moves the cursor position forward or backward with a single tap.</p>
-<p>But that's not enough; the user expects the cursor to move continuously and progressively faster when it's held down. Just like pressing and holding the delete key, it makes users happy.</p>
+<p>As you may have noticed, Taio’s toolbar provides a feature that moves the cursor position forward or backward with a single tap.</p>
+<p>But that’s not enough; the user expects the cursor to move continuously and progressively faster when it’s held down. Just like pressing and holding the delete key, it makes users happy.</p>
 <p>After adjusting the way the movement speed changes so many times, we finally got an approach very close to the delete key by setting a <code>Timer</code> with the <code>InputClick</code> effect mentioned above.</p>
 <h2 id="optimize-for-ipad">Optimize for iPad</h2>
 <p>As we mentioned before, <code>inputView</code> is great for extending the keyboard, but it cannot be applied to an iPad with an external keyboard, because the keyboard will possibly be hidden.</p>
-<p>In this case, we'll use a <code>Popover</code> instead, like this:</p>
+<p>In this case, we’ll use a <code>Popover</code> instead, like this:</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_5.png" width="360" /></p>
 <blockquote>
-<p>It's important that you should not check whether or not it's an iPad to determine what environment the user is in. Because iPad can look pretty much like iPhone when using split views, and there's floating mode for iPad keyboard.</p>
+<p>It’s important that you should not check whether or not it’s an iPad to determine what environment the user is in. Because iPad can look pretty much like iPhone when using split views, and there’s floating mode for iPad keyboard.</p>
 </blockquote>
 <h2 id="standard-edit-actions">Standard Edit Actions</h2>
-<p>Since Markdown supports text styles bold and italic, it's natural to control the formatting using <code>UIMenuController</code>, which can be done with <code>UIResponderStandardEditActions</code>:</p>
+<p>Since Markdown supports text styles bold and italic, it’s natural to control the formatting using <code>UIMenuController</code>, which can be done with <code>UIResponderStandardEditActions</code>:</p>
 <pre class="swift"><code>override func toggleBoldface(_ sender: Any?) {
 
 }
@@ -430,9 +430,9 @@ override func toggleUnderline(_ sender: Any?) {
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_6.png" width="360" /></p>
 <p>As a side effect, there is now a redundant BIU button group on iPad, which is a duplicate of the one on our toolbar.</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_7.png" width="360" /></p>
-<p>Not a big problem, let's get rid of it by overriding the <code>inputAssistantItem</code> with:</p>
+<p>Not a big problem, let’s get rid of it by overriding the <code>inputAssistantItem</code> with:</p>
 <pre class="swift"><code>view.inputAssistantItem.trailingBarButtonGroups = []</code></pre>
-<p>Of course, you can also set them to other buttons if you feel it's necessary.</p>
+<p>Of course, you can also set them to other buttons if you feel it’s necessary.</p>
 <h2 id="more-content">More Content</h2>
 <p>As we said before, text editing is never easy and we have done a lot of work for it.</p>
 <p>This article is only a small part of it, stay tuned for more interesting content.</p>

@@ -20,17 +20,17 @@
 <p>与 Web 领域不同的是，在 iOS 生态下我们很难找到完美的开源解决方案，但我们可以从一些高质量项目中获得启发。</p>
 <p><strong>纯 Web 技术</strong></p>
 <p>也既使用 <code>WebView</code> 封装 <a href="https://highlightjs.org/">highlight.js</a> 或 <a href="https://prismjs.com/">Prism</a> 一类的 Web 项目，开发成本很低，在<strong>阅读代码</strong>时也能取得不错的效果。</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
-<span class="kw">&lt;html&gt;</span>
-  <span class="kw">&lt;head&gt;</span>
-    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;default.css&quot;</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;highlight.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
-    <span class="kw">&lt;script&gt;</span>hljs.initHighlightingOnLoad();<span class="kw">&lt;/script&gt;</span>
-  <span class="kw">&lt;/head&gt;</span>
-  <span class="kw">&lt;body&gt;</span>
-    <span class="kw">&lt;pre&gt;&lt;code&gt;</span>const string = &quot;Hello, World!&quot;;<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span>
-  <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb1-1" title="1"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;default.css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;highlight.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="kw">&lt;script&gt;</span>hljs.initHighlightingOnLoad();<span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="kw">&lt;pre&gt;&lt;code&gt;</span>const string = &quot;Hello, World!&quot;;<span class="kw">&lt;/code&gt;&lt;/pre&gt;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>
 <p>此类方案很成熟，但如需支持编辑，则很难达到原生编辑器的流畅体验。</p>
 <p><strong>纯原生技术</strong></p>
 <p>也既完全使用原生技术实现对语言的语法分析，并通过 <a href="https://developer.apple.com/documentation/appkit/textkit">TextKit</a> 渲染出来。可以参考的例子有 <a href="https://github.com/louisdh/savannakit">SavannaKit</a> 和其继任者 <a href="https://github.com/twostraws/Sourceful">Sourceful</a>。</p>
@@ -38,9 +38,9 @@
 <p><strong>取长补短</strong></p>
 <p>综合 Web 技术的成熟和原生技术的性能是个不错的想法，这样的方案是存在的。</p>
 <p>我们可以通过 <a href="https://developer.apple.com/documentation/javascriptcore">JavaScriptCore</a> 高性能地运行上述 JavaScript 项目，将得到的结果用原生的方式渲染出来，<a href="https://github.com/raspu/Highlightr">Highlightr</a> 项目采用的就是这个思路。</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hljs-section&quot;</span><span class="kw">&gt;</span># Hi<span class="kw">&lt;/span&gt;</span>
-
-Hello, World!</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;hljs-section&quot;</span><span class="kw">&gt;</span># Hi<span class="kw">&lt;/span&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">Hello, World!</a></code></pre></div>
 <p>这类方案可以低成本地得到上百种编程语言的支持，以及几十个编辑器主题。</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_19.png" width="360" /></p>
 <blockquote>
@@ -112,10 +112,10 @@ Hello, World!</code></pre></div>
 <p>用户可以在 Taio 使用设备上的任何字体：</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_24.png" width="360" /></p>
 <p>这个功能我们使用 <a href="https://developer.apple.com/documentation/uikit/uifontpickerviewcontroller">UIFontPickerViewController</a> 实现，如需支持用户安装的字体，需在 <code>Info.entitlements</code> 中开启：</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>com.apple.developer.user-fonts<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;array&gt;</span>
-  <span class="kw">&lt;string&gt;</span>app-usage<span class="kw">&lt;/string&gt;</span>
-<span class="kw">&lt;/array&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;key&gt;</span>com.apple.developer.user-fonts<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">&lt;string&gt;</span>app-usage<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">&lt;/array&gt;</span></a></code></pre></div>
 <p>此外，FontPicker 并没有提供好的方式来选择 <code>systemFont</code>，这将导致恢复默认设置不方便。我们的做法是将 FontPicker 包装到另一个 UIViewController，然后在其左上角添加一个 <code>System Font</code> 按钮。</p>
 <blockquote>
 <p>此方法会失去搜索栏，可能有更好的方式。</p>
@@ -173,7 +173,7 @@ Hello, World!</code></pre></div>
 <p>欢迎随时与我们联系：</p>
 <ul>
 <li>邮箱：<a href="mailto:hi@taio.app">hi@taio.app</a></li>
-<li>Twitter：<a href="https://twitter.com/TaioApp" class="uri">https://twitter.com/TaioApp</a></li>
+<li>Twitter：<a href="https://twitter.com/TaioApp">https://twitter.com/TaioApp</a></li>
 </ul>]]></description>
     <pubDate>Wed, 30 Dec 2020 14:54:55 +0800</pubDate>
   </item>
@@ -217,7 +217,7 @@ textView.reloadInputViews()</code></pre>
 <p><code>UIDevice</code> 有一个 <code>playInputClick</code> 方法，可以通过实现 <code>enableInputClicksWhenVisible</code> 来使用。</p>
 <p>不过还有一个更粗暴的方法：</p>
 <pre class="swift"><code>AudioServicesPlaySystemSound(1104)</code></pre>
-<p><em>It's pure magic.</em></p>
+<p><em>It’s pure magic.</em></p>
 <h2 id="支持-pointer-交互">支持 Pointer 交互</h2>
 <p>因为我们的应用期待用户在一个连接了妙控键盘的 iPad 上使用，所以键盘上的按钮支持触摸板的 <code>Hover</code> 效果就极为重要，用户会非常期待鼠标停在按钮上的时候是有反馈的。</p>
 <p>关于这个部分我们不再赘述，您可以在 Apple 开发者官网找到很多 WWDC 课程。</p>
@@ -288,8 +288,8 @@ override func toggleUnderline(_ sender: Any?) {
 <h2 id="文件共享">文件共享</h2>
 <p>早期的 iOS 并不具备做到这些优秀特性的基础，直到 Apple 发布了<a href="https://support.apple.com/zh-cn/HT206481">文件应用</a>，以及一系列为文件共享而生的 API。</p>
 <p>文件应用为共享的文件提供了统一的用户界面，开发者可以通过在 <code>Info.plist</code> 内开启 <code>UIFileSharingEnabled</code> 来将 <code>Documents</code> 目录暴露给文件应用。</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>UIFileSharingEnabled<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;key&gt;</span>UIFileSharingEnabled<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;true/&gt;</span></a></code></pre></div>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_8.png" width="360"></p>
 <h2 id="icloud-云盘">iCloud 云盘</h2>
 <p>上面提到的 <code>Documents</code> 目录是本地的，iOS 也提供了云存储方案 <code>iCloud Drive</code>，它有很多好处：</p>
@@ -316,56 +316,56 @@ override func toggleUnderline(_ sender: Any?) {
 </blockquote>
 <h2 id="document-types">Document types</h2>
 <p>应用可以在 <code>Info.plist</code> 文件注册接受的文件类型，例如：</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Markdown File<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Owner<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>net.daringfireball.markdown<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-<span class="kw">&lt;/dict&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">&lt;string&gt;</span>Markdown File<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">&lt;string&gt;</span>Owner<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="kw">&lt;string&gt;</span>net.daringfireball.markdown<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">&lt;/dict&gt;</span></a></code></pre></div>
 <p>这样便可接收来自 AirDrop 或 Share Sheet 分享的文件，然后使用 <code>AppDelegate</code> 或 <code>SceneDelegate</code> (Multiple Windows) 相关的方法进行处理。</p>
 <p>为了让体验更好，我们可以支持导入目录，而不仅仅是单个文件：</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Folder<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeOSTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>fold<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-  <span class="kw">&lt;key&gt;</span>CFBundleTypeRole<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Viewer<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>Default<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>public.folder<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-<span class="kw">&lt;/dict&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;key&gt;</span>CFBundleTypeName<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">&lt;string&gt;</span>Folder<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">&lt;key&gt;</span>CFBundleTypeOSTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">&lt;string&gt;</span>fold<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="kw">&lt;key&gt;</span>CFBundleTypeRole<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="kw">&lt;string&gt;</span>Viewer<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;key&gt;</span>LSHandlerRank<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="kw">&lt;string&gt;</span>Default<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;key&gt;</span>LSItemContentTypes<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">&lt;string&gt;</span>public.folder<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="kw">&lt;/dict&gt;</span></a></code></pre></div>
 <blockquote>
 <p>Taio 在接收到目录后，会引导用户将其保存至某个位置。</p>
 </blockquote>
 <h2 id="exported-type-identifiers">Exported Type Identifiers</h2>
 <p>除了接收文件，应用也可以定义专属的文件类型。例如 Taio 的动作其本质是一个 JSON 文件，我们将其定义为了 <code>taioactions</code>:</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;dict&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeConformsTo<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;array&gt;</span>
-    <span class="kw">&lt;string&gt;</span>public.json<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/array&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeDescription<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>FileTypeTaioActionsDescription<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeIdentifier<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;string&gt;</span>app.cyan.taio-actions<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;key&gt;</span>UTTypeTagSpecification<span class="kw">&lt;/key&gt;</span>
-  <span class="kw">&lt;dict&gt;</span>
-    <span class="kw">&lt;key&gt;</span>public.filename-extension<span class="kw">&lt;/key&gt;</span>
-    <span class="kw">&lt;string&gt;</span>taioactions<span class="kw">&lt;/string&gt;</span>
-    <span class="kw">&lt;key&gt;</span>public.mime-type<span class="kw">&lt;/key&gt;</span>
-    <span class="kw">&lt;string&gt;</span>application/json<span class="kw">&lt;/string&gt;</span>
-  <span class="kw">&lt;/dict&gt;</span>
-<span class="kw">&lt;/dict&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;key&gt;</span>UTTypeConformsTo<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;array&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;string&gt;</span>public.json<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">&lt;/array&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">  <span class="kw">&lt;key&gt;</span>UTTypeDescription<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="kw">&lt;string&gt;</span>FileTypeTaioActionsDescription<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="kw">&lt;key&gt;</span>UTTypeIdentifier<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="kw">&lt;string&gt;</span>app.cyan.taio-actions<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="kw">&lt;key&gt;</span>UTTypeTagSpecification<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="kw">&lt;dict&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">&lt;key&gt;</span>public.filename-extension<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">&lt;string&gt;</span>taioactions<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    <span class="kw">&lt;key&gt;</span>public.mime-type<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">    <span class="kw">&lt;string&gt;</span>application/json<span class="kw">&lt;/string&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">  <span class="kw">&lt;/dict&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="kw">&lt;/dict&gt;</span></a></code></pre></div>
 <p>用户可以看到明确的类型描述，别的应用也可以将此类型注册为支持的类型：</p>
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_11.png" width="360"></p>
 <blockquote>
@@ -376,15 +376,15 @@ override func toggleUnderline(_ sender: Any?) {
 <p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_12.png" width="360"></p>
 <p>不过 Taio 并没有这样实现，因为我们想要更多交互上的灵活性，而 Apple <a href="https://developer.apple.com/documentation/uikit/view_controllers/adding_a_document_browser_to_your_app">文档</a>明确指出：</p>
 <blockquote>
-<p>Always assign the document browser as your app's root view controller. Don't place the document browser in a navigation controller, tab bar, or split view, and don't present the document browser modally.</p>
+<p>Always assign the document browser as your app’s root view controller. Don’t place the document browser in a navigation controller, tab bar, or split view, and don’t present the document browser modally.</p>
 </blockquote>
 <p>此外，如果需要在应用内打开文件选择器，应该使用 <a href="https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller">UIDocumentPickerViewController</a> 而不是 UIDocumentBrowserViewController。</p>
 <p>关于这个部分，您可以参考开源项目 <a href="https://github.com/louisdh/textor">textor</a> 了解更多。</p>
 <h2 id="open-in-place">Open in Place</h2>
 <p>上面我们提到了在应用内打开外部文件的方法，该方法会在应用内创建文件拷贝。而 <code>Open in Place</code> 则可以直接打开其他应用的文件，并直接编辑它们本身。</p>
 <p>方法是在 <code>Info.plist</code> 内指定：</p>
-<div class="sourceCode"><pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;key&gt;</span>LSSupportsOpeningDocumentsInPlace<span class="kw">&lt;/key&gt;</span>
-<span class="kw">&lt;true/&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;key&gt;</span>LSSupportsOpeningDocumentsInPlace<span class="kw">&lt;/key&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;true/&gt;</span></a></code></pre></div>
 <p>和文件导入类似的，您需要处理 <code>SceneDelegate</code> 的方法，<code>UIOpenURLContext</code> 告诉了您是否属于 Open in Place 操作：</p>
 <pre class="swift"><code>if context.options.openInPlace {
 
