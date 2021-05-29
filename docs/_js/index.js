@@ -29,6 +29,7 @@ window.$docsify = {
     }
   },
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
+  externalLinkTarget: '_self',
   plugins: [
     EditOnGithubPlugin.create('', null, path => {
       if (path.indexOf('cn/') === 0) {
