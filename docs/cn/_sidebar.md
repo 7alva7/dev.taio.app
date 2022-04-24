@@ -4,3 +4,4 @@
   - [现代文件应用](cn/editor/files.md)
   - [代码编辑器](cn/editor/code-editor.md)
   - [工具栏体验](cn/editor/toolbar.md)
+  - [重新设计工具栏](cn/editor/toolbar-revamp.md)

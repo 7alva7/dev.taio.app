@@ -4,3 +4,4 @@
   - [Modern File Apps](editor/files.md)
   - [Source Code Editor](editor/code-editor.md)
   - [Toolbar Experience](editor/toolbar.md)
+  - [Toolbar Revamp](editor/toolbar-revamp.md)
