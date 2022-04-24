@@ -6,6 +6,48 @@
   <description>Taio Dev Notes</description>
    
   <item>
+    <title><![CDATA[Over the past few months, we have been rethinking text editing experience on Apple platforms, the outcome was that we abandoned all the formatting toolbars we created and replaced them with new designs.]]></title>
+    <link>https://dev.taio.app/#/editor/toolbar-revamp</link>
+    <guid isPermaLink="false">https://dev.taio.app/#/editor/toolbar-revamp</guid>
+    <description><![CDATA[<blockquote>
+<p>Over the past few months, we have been rethinking text editing experience on Apple platforms, the outcome was that we abandoned all the formatting toolbars we created and replaced them with new designs.</p>
+</blockquote>
+<h2 id="formatting-toolbars">Formatting Toolbars</h2>
+<p>It is actually something we used to be proud of, we even wrote an <a href="https://dev.taio.app/#/editor/toolbar">article</a> about it. However, it didn’t work very well, and we are telling you why, for each platform.</p>
+<h3 id="iphone">iPhone</h3>
+<p>It looks good to have a scrollable toolbar that shows all formatting options, but in reality, we find that it’s hard for users to remember the position, and they must stop at some point precisely, it makes their life hard on a touch screen. Even worse, with this kind of “instability”, users cannot train themselves to leverage “muscle memory”.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_1.png" width="360" /></p>
+<p>We ended up improving this by making the toolbar fixed, showing only a few buttons on it, and making most of the formatting options secondary (by utilizing <a href="https://developer.apple.com/documentation/uikit/uiresponder/1621092-inputview">inputView</a>).</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_28.png" width="360" /></p>
+<p>This is actually a trade-off, but we think it’s worth making. In some cases, it takes one more tap to trigger the action, but users can achieve most actions even faster because of the magic of muscle memory, actions are now logically grouped and the method to navigate is easier to remember.</p>
+<p>Also, we leveraged the modern menus on the latest iOS, it makes option switching easier, with an even more native-looking style.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_29.png" width="360" /></p>
+<p>Based on observations, we think that long-press menus are often “hidden” to users, so we made the menu the primary action, and they can just swipe through the menu to select an item, thanks to the new <a href="https://developer.apple.com/design/human-interface-guidelines/ios/controls/buttons/">menu system</a> on iOS.</p>
+<h3 id="ipad">iPad</h3>
+<p>We used to have the same toolbar on both iOS and iPadOS, it worked “okay” since iPad typically has a wider display, there is no scrolling issues as mentioned above. However, the text editing experience on the iPad has been redesigned by Apple to have a cleaner floating toolbar on iPadOS 15.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_30.png" width="720" /></p>
+<p>It is still possible to use the legacy <code>inputAccessoryView</code> based toolbar (which is still used by most editors), but it looks a bit strange and takes up a lot of space by the toolbar, which is a waste of the large screen. More importantly, it is ugly and buggy.</p>
+<p>The answer to this issue was revealed a long time ago: <a href="https://developer.apple.com/documentation/uikit/uiresponder/1621135-inputassistantitem">inputAssistantItem</a>, Apple has been using it for many 1st-party apps, such as Notes and Pages, over the past few years.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_31.png" width="360" /></p>
+<p>On iPadOS 14 (and iPadOS 15 without an external keyboard attached), it adds additional buttons to the native keyboard toolbar. If you are using an external keyboard on iPadOS 15, here’s what it looks like, it’s super compact and neat.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_32.png" width="360" /></p>
+<p>For text formatting, we use a popover-style window that contains frequently used options, and for content insertion like images and links, we are relying on pull-down menus as mentioned above. It works very well and is perfect for accessories like Magic Keyboard and Apple Pencil.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_33.png" width="360" /></p>
+<h3 id="mac">Mac</h3>
+<p>When we originally moved our iPad app to Mac using <a href="https://developer.apple.com/documentation/uikit/mac_catalyst">Mac Catalyst</a>, we replicated the <a href="https://developer.apple.com/documentation/uikit/uimenucontroller">UIMenuController</a> experience on iOS by making a home-made popup window.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_34.png" width="360" /></p>
+<p>This is something we regret doing, too. The reason behind this is that it doesn’t feel like a Mac app, some well-known apps use this style for rich-text formatting though. When we select a big chunk of text or scroll the window, the popup window always shows or hides unexpectedly.</p>
+<p>To solve this, we added support for both context menu and status bar menu (with keyboard shortcuts support), as they look much more “Mac-like”.</p>
+<p><img src="https://github.com/cyanzhong/dev.taio.app/raw/master/docs/editor/assets/IMG_35.png" width="360" /></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It’s hard to have a unified solution for all Apple platforms, so we tweaked the experience for each of them. We cannot say they are perfect, but we are satisfied with the results so far.</p>
+<blockquote>
+<p>[!NOTE] April 24, 2022</p>
+</blockquote>]]></description>
+    <pubDate>Sun, 24 Apr 2022 19:21:01 +0800</pubDate>
+  </item>
+   
+  <item>
     <title><![CDATA[Source Code Editor]]></title>
     <link>https://dev.taio.app/#/editor/code-editor</link>
     <guid isPermaLink="false">https://dev.taio.app/#/editor/code-editor</guid>
